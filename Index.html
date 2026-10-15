@@ -33,7 +33,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -1225,10 +1225,139 @@
                         ];
                     }
 
-                    const headlines = this.ensureUniqueArray(rawMetaHeadlines, [], 255);
-                    const descriptions = this.ensureUniqueArray(rawMetaDesc, [], 255);
+                    const headlineFallbacks = [
+                        "Tradição em Ensino EAD", "Cursos com Foco no Mercado", "Formação de Alta Qualidade",
+                        "Estude no Seu Próprio Ritmo", "Invista no Seu Futuro", "Qualificação Profissional"
+                    ];
 
-                    return { name, primaryTexts, headlines, descriptions, cta: this.state.metaOptions.cta };
+                    const headlines = this.ensureUniqueArray(rawMetaHeadlines, headlineFallbacks, 30);
+                    const longHeadlines = this.ensureUniqueArray(rawLongHeadlines, [], 90);
+                    const descriptions = this.ensureUniqueArray(rawDescriptions, [], 90);
+
+                    const sitelinks = [
+                        { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado real" },
+                        { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
+                        { title: "Bolsas e Descontos", desc1: "Condições facilitadas", desc2: "Mensalidades que cabem no bolso" },
+                        { title: "Polos no Brasil", desc1: "Mais de 1.000 unidades", desc2: "Encontre o polo mais próximo" },
+                        { title: "Nota Máxima MEC", desc1: "Ensino de excelência", desc2: "Qualidade comprovada no EAD" },
+                        { title: "Sobre a UniCesumar", desc1: "Tradição e inovação", desc2: "Uma das maiores do Brasil" }
+                    ];
+
+                    return { name, headlines, longHeadlines, descriptions, sitelinks };
+                } else {
+                    let primaryTexts = [];
+                    let rawMetaHeadlines = [];
+                    let rawMetaDesc = [];
+
+                    if (angleIndex === 0) {
+                        primaryTexts = [
+                            `A gestão e a supervisão pedagógica são fundamentais para transformar o ambiente escolar! 🎓\n\nCom a Pós-graduação em ${coreSubject} da UniCesumar, você domina práticas modernas de coordenação, orientação educacional e liderança para conduzir equipes de ensino com excelência.\n\nBenefícios do formato EAD:\n✅ Material didático exclusivo e avaliações agendadas 💻\n✅ Estude no seu próprio ritmo com flexibilidade total ⏰\n✅ Nota máxima no MEC e 88% dos alunos empregados ⭐\n\n👉 Dê um passo estratégico na sua trajetória e garanta sua vaga! 🎯`,
+                            `Transforme instituições de ensino e lidere equipes pedagógicas de sucesso! 🏆\n\nFaça sua Pós-graduação em ${coreSubject} na UniCesumar. Conte com corpo docente qualificado e diploma com a mesma validade do presencial.\n\nClique no botão abaixo e inicie hoje mesmo! ✨`,
+                            `Sua rotina intensa de trabalho exige flexibilidade nos estudos! 🌟\n\nEstude ${coreSubject} no EAD UniCesumar com plataforma interativa e suporte pedagógico contínuo.\n\nGaranta sua inscrição! 🎓`,
+                            `Especialize-se com quem é Nota Máxima no MEC! 📚\n\nO curso de ${coreSubject} foi desenhado para preparar você para os desafios do mercado real. Não perca tempo! 🚀`,
+                            `Sua carreira na educação pode ir muito mais longe! 🎯\n\nConheça a Pós-graduação em ${coreSubject} e estude com a flexibilidade do ensino online aliado à tradição da UniCesumar. 💡`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🎓`,
+                            `${specificHeadlines[1]} ⭐`,
+                            `${specificHeadlines[2]} 💻`,
+                            `Nota Máxima MEC | 88% Empregados 📈`,
+                            `Material Exclusivo e Avaliações Agendadas 💻`
+                        ];
+                        rawMetaDesc = [
+                            "Estude no seu próprio ritmo com suporte completo 📱",
+                            "Aprenda supervisão, orientação e liderança escolar 👨‍🏫",
+                            "88% dos nossos alunos estão colocados no mercado 📈",
+                            "Metodologia moderna focada no seu aprendizado 💡",
+                            "Qualidade de ensino garantida na UniCesumar 🎓"
+                        ];
+                    } else if (angleIndex === 1) {
+                        primaryTexts = [
+                            `🔥 OPORTUNIDADE EXCLUSIVA DE MATRÍCULA! 🎓\n\nGaranta sua vaga na Pós-graduação em ${coreSubject} com condições especiais e descontos imperdíveis!\n\n` + (promo ? `Aproveite: ${promo} 🏷️\n\n` : '') + `👉 Clique no botão abaixo para garantir seu desconto antes que as vagas encerrem! ⏳`,
+                            `Sua Pós-graduação com valor que cabe no seu bolso! 💰\n\nNa UniCesumar você estuda ${coreSubject} com mensalidades acessíveis e condições de pagamento facilitadas.\n\nGaranta sua bolsa de estudos agora mesmo! 🎯`,
+                            `Não adie mais o seu futuro por questões financeiras! ⚡\n\nInscreva-se hoje no curso de ${coreSubject} e aproveite nossas condições comerciais exclusivas para novas turmas.\n\nClique em "Obter oferta" e confira! 🎁`,
+                            `Investimento baixo com retorno garantido para sua carreira! 📈\n\nEspecialize-se em ${coreSubject} pagando menos na maior instituição de ensino EAD do Brasil. 🌟`,
+                            `Últimos dias para garantir sua condição comercial diferenciada em ${coreSubject}! ⏳\n\nClique e inscreva-se sem burocracia. 🏷️`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🎓`,
+                            `${specificHeadlines[1]} 💰`,
+                            promo ? `${promo} 🏷️` : `Garanta Sua Bolsa em ${shortSubject} 🎓`,
+                            `Condições Especiais de Matrícula ⚡`,
+                            `Inscreva-se com Oferta Exclusiva 🎁`
+                        ];
+                        rawMetaDesc = [
+                            "Aproveite as condições especiais e garanta sua vaga 🎯",
+                            "Início imediato sem taxa de matrícula 🚀",
+                            "Mensalidades com desconto por tempo limitado ⏳",
+                            "Sua bolsa de estudos garantida hoje mesmo 💡",
+                            "Clique para conferir os valores promocionais 🏷️"
+                        ];
+                    } else if (angleIndex === 2) {
+                        primaryTexts = [
+                            `O mercado educacional exige gestores e supervisores capacitados em ${coreSubject}! 💼\n\n88% dos alunos UniCesumar estão colocados no mercado. Desenvolva competências práticas em gestão e coordenação para impulsionar sua carreira.\n\n👉 Inscreva-se e conquiste novos cargos! 🚀`,
+                            `Quer assumir cargos de liderança ou supervisão escolar? 📈\n\nA Pós em ${coreSubject} é o passo estratégico que faltava no seu currículo. Aprenda com quem vive a prática educacional.\n\nClique e saiba mais! 🎯`,
+                            `Estude ${coreSubject} sem abrir mão da sua rotina de trabalho! 📱💻\n\nNossa plataforma online permite que você assista às aulas onde e quando puder. Liberdade total para seus estudos.\n\nGaranta sua vaga! 🎓`,
+                            `Desenvolva competências de liderança pedagógica em ${coreSubject}! 🏆\n\nAcelere sua carreira profissional hoje com apoio dos melhores professores. 💡`,
+                            `Flexibilidade total, diploma de peso e foco na sua empregabilidade! 🌟\n\nInscreva-se no curso de ${coreSubject} e alcance o topo do mercado. 🎯`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🚀`,
+                            `${specificHeadlines[1]} 📈`,
+                            `88% Alunos Empregados | UniCesumar 📈`,
+                            `Seja Especialista em ${shortSubject} 🎓`,
+                            `Evolução Profissional Garantida 🏆`
+                        ];
+                        rawMetaDesc = [
+                            "Formação alinhada às exigências do mercado educacional 💼",
+                            "Evolua seu currículo e conquiste novos cargos 🎯",
+                            "Acesse pelo celular ou computador 24h por dia 📱",
+                            "Praticidade e flexibilidade para a sua rotina ⏳",
+                            "Qualifique-se com quem é referência nacional ⭐"
+                        ];
+                    } else {
+                        primaryTexts = [
+                            `Sua rotina é corrida? Estude ${coreSubject} no seu próprio ritmo! 📱💻\n\nCom a plataforma intuitiva da UniCesumar, você organiza seus estudos do seu jeito, sem abrir mão da excelência acadêmica com Nota Máxima no MEC ⭐\n\n👉 Garanta sua vaga! 🎓`,
+                            `Assista às aulas de onde estiver e quando quiser! 🌍\n\nA Pós-graduação em ${coreSubject} oferece videoaulas, materiais interativos e suporte de tutores preparados para tirar suas dúvidas.\n\nClique e inscreva-se! ✨`,
+                            `Liberdade total para estudar sem comprometer seu trabalho! ⏰\n\nOrganize sua agenda e conclua seu curso de ${coreSubject} a partir de 8 meses na maior instituição EAD do país.\n\nSaiba mais! 🚀`,
+                            `Plataforma digital moderna e conteúdo 24h disponível! 💻\n\nEspecialize-se em ${coreSubject} com a praticidade que você precisa e a qualidade que o mercado exige. 🌟`,
+                            `Aprenda sem burocracia e no seu próprio ritmo! 🎓\n\nConheça a grade curricular de ${coreSubject} e garanta sua vaga na UniCesumar. 💡`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 💻`,
+                            `${specificHeadlines[1]} 📱`,
+                            `${specificHeadlines[2]} ⏰`,
+                            `Aprenda Onde e Quando Quiser 🌍`,
+                            `Suporte Contínuo no Seu EAD 🎓`
+                        ];
+                        rawMetaDesc = [
+                            "Acesse pelo celular ou computador 24h por dia 📱",
+                            "Praticidade e flexibilidade para sua rotina ⏰",
+                            "Conclusão rápida a partir de 8 meses 🚀",
+                            "Suporte completo de tutores em todas as etapas 💡",
+                            "Metodologia inovadora para o ensino EAD 🌟"
+                        ];
+                    }
+
+                    const headlineFallbacks = [
+                        "Tradição em Ensino EAD", "Cursos com Foco no Mercado", "Formação de Alta Qualidade",
+                        "Estude no Seu Próprio Ritmo", "Invista no Seu Futuro", "Qualificação Profissional"
+                    ];
+
+                    const headlines = this.ensureUniqueArray(rawMetaHeadlines, headlineFallbacks, 30);
+                    const longHeadlines = this.ensureUniqueArray(rawLongHeadlines, [], 90);
+                    const descriptions = this.ensureUniqueArray(rawDescriptions, [], 90);
+
+                    const sitelinks = [
+                        { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado real" },
+                        { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
+                        { title: "Bolsas e Descontos", desc1: "Condições facilitadas", desc2: "Mensalidades que cabem no bolso" },
+                        { title: "Polos no Brasil", desc1: "Mais de 1.000 unidades", desc2: "Encontre o polo mais próximo" },
+                        { title: "Nota Máxima MEC", desc1: "Ensino de excelência", desc2: "Qualidade comprovada no EAD" },
+                        { title: "Sobre a UniCesumar", desc1: "Tradição e inovação", desc2: "Uma das maiores do Brasil" }
+                    ];
+
+                    return { name, headlines, longHeadlines, descriptions, sitelinks };
                 }
             },
 
