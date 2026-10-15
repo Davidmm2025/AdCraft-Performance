@@ -31,7 +31,7 @@
         }
     </script>
 
-    <!-- CSS de Segurança e Estilização -->
+    <!-- CSS de Segurança e Layout -->
     <style>
         * { box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #1e293b; }
@@ -83,7 +83,7 @@
     <!-- Conteúdo Principal -->
     <main class="container-box flex-grow w-full">
         
-        <!-- STEP 1: Seleção de Plataforma -->
+        <!-- PASSO 1: Seleção de Plataforma -->
         <section id="step-1" class="step-card">
             <div class="text-center max-w-2xl mx-auto mb-8">
                 <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-2 inline-block">Passo 1 de 4</span>
@@ -97,7 +97,7 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" style="max-height: 28px; width: auto;">
                     </div>
                     <h3 class="text-lg font-bold text-corp-900 group-hover:text-blue-600 mb-2">Google Ads</h3>
-                    <p class="text-corp-500 text-xs leading-relaxed mb-4">Anúncios Responsivos de Pesquisa (RSA). Gera 15 Títulos, 5 Títulos Longos, 5 Descrições e 6 Sitelinks com regras oficiais.</p>
+                    <p class="text-corp-500 text-xs leading-relaxed mb-4">Anúncios Responsivos de Pesquisa (RSA). Gera 15 Títulos, 5 Títulos Longos, 5 Descrições e 6 Sitelinks oficiais.</p>
                     <span class="text-xs font-semibold text-blue-600">Selecionar Rede de Pesquisa →</span>
                 </div>
 
@@ -112,7 +112,7 @@
             </div>
         </section>
 
-        <!-- STEP 2: Análise da URL de Destino -->
+        <!-- PASSO 2: Análise da URL de Destino -->
         <section id="step-2" class="step-card hidden max-w-3xl mx-auto">
             <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
                 <div class="mb-6">
@@ -136,7 +136,7 @@
 
                     <div id="manual-context-area" class="hidden space-y-2">
                         <label class="block text-xs font-semibold text-corp-700">Parágrafos Extraídos & Mapeamento de Argumentos</label>
-                        <textarea id="manual-context" rows="6" class="w-full p-3 border border-corp-200 rounded-xl text-xs font-mono bg-slate-50 text-corp-700 outline-none leading-relaxed"></textarea>
+                        <textarea id="manual-context" rows="5" class="w-full p-3 border border-corp-200 rounded-xl text-xs font-mono bg-slate-50 text-corp-700 outline-none leading-relaxed"></textarea>
                     </div>
                 </div>
 
@@ -147,7 +147,7 @@
             </div>
         </section>
 
-        <!-- STEP 3: Configurações do Anúncio -->
+        <!-- PASSO 3: Configurações do Anúncio -->
         <section id="step-3" class="step-card hidden max-w-3xl mx-auto">
             <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
                 <div class="mb-6">
@@ -188,26 +188,6 @@
                             </select>
                         </div>
                     </div>
-
-                    <div id="meta-specific-config" class="hidden p-4 bg-indigo-50/60 border border-indigo-100 rounded-xl">
-                        <h4 class="text-xs font-bold text-indigo-900 mb-2">Parâmetros Meta Ads</h4>
-                        <div class="grid md:grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">Objetivo</label>
-                                <select id="meta-objective" class="w-full p-2 bg-white border border-corp-200 rounded-lg text-xs">
-                                    <option value="conversao">Vendas / Leads</option>
-                                    <option value="trafego">Tráfego</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">CTA</label>
-                                <select id="meta-cta" class="w-full p-2 bg-white border border-corp-200 rounded-lg text-xs">
-                                    <option value="Saiba mais">Saiba mais</option>
-                                    <option value="Inscreva-se">Inscreva-se</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="flex justify-between items-center mt-6 pt-4 border-t border-corp-100">
@@ -217,7 +197,7 @@
             </div>
         </section>
 
-        <!-- STEP 4: Estúdio de Revisão e Variações A/B -->
+        <!-- PASSO 4: Estúdio de Revisão e Variações A/B -->
         <section id="step-4" class="step-card hidden">
             <div class="bg-white p-4 rounded-2xl border border-corp-200 shadow-sm mb-6 flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center gap-2">
@@ -226,13 +206,13 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <button onclick="generateNewVariation()" class="btn-primary text-xs">+ Criar Variação A/B</button>
-                    <button onclick="exportAds('txt')" class="btn-sec text-xs">Baixar TXT</button>
-                    <button onclick="exportAds('csv')" class="btn-sec text-xs">Baixar CSV</button>
+                    <button onclick="exportAds('txt')" class="btn-sec text-xs"><i class="fas fa-file-alt"></i> Baixar TXT</button>
+                    <button onclick="exportAds('csv')" class="btn-sec text-xs"><i class="fas fa-file-csv"></i> Baixar CSV</button>
                 </div>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-6">
-                <!-- Coluna da Esquerda: Todos os blocos encadeados -->
+                <!-- Coluna da Esquerda: Editores Completos -->
                 <div class="lg:col-span-7 xl:col-span-8 space-y-6" id="ads-editor-container"></div>
                 
                 <!-- Coluna da Direita: Preview Sticky -->
@@ -254,17 +234,16 @@
 
     </main>
 
-    <!-- Footer Corporativo -->
+    <!-- Rodapé -->
     <footer class="bg-white border-t border-corp-200 py-4 mt-auto text-center text-xs text-corp-400">
         <p>AdCraft Performance Studio — Validação Sintática & Regras Oficiais de Tráfego v3.2 Pro</p>
     </footer>
 
-    <!-- Aplicação JavaScript Global Completa -->
+    <!-- Aplicação JavaScript Completa -->
     <script>
         window.appState = {
-            step: 1, platform: null, url: '', scrapedText: '',
-            category: '', courseName: '', promoOffer: '', tone: 'equilibrado',
-            metaOptions: { objective: 'conversao', cta: 'Saiba mais' },
+            step: 1, platform: 'google', url: '', scrapedText: '',
+            category: '', courseName: 'Alfabetização e Letramento', promoOffer: '', tone: 'equilibrado',
             variations: [], activeVariationIndex: 0
         };
 
@@ -273,11 +252,8 @@
             [1, 2, 3, 4].forEach(n => {
                 const el = document.getElementById('step-' + n);
                 if (el) {
-                    if (n === stepNum) {
-                        el.classList.remove('hidden');
-                    } else {
-                        el.classList.add('hidden');
-                    }
+                    if (n === stepNum) el.classList.remove('hidden');
+                    else el.classList.add('hidden');
                 }
             });
             window.updateProgressBar(stepNum);
@@ -311,23 +287,15 @@
 
         window.selectPlatform = function(plat) {
             window.appState.platform = plat;
-            const configEl = document.getElementById('meta-specific-config');
-            if (configEl) {
-                if (plat === 'meta') {
-                    configEl.classList.remove('hidden');
-                } else {
-                    configEl.classList.add('hidden');
-                }
-            }
             window.goToStep(2);
         };
 
         window.resetApp = function() {
             if(confirm('Deseja reiniciar a criação e limpar os dados atuais?')) {
                 window.appState = {
-                    step: 1, platform: null, url: '', scrapedText: '',
+                    step: 1, platform: 'google', url: '', scrapedText: '',
                     category: '', courseName: '', promoOffer: '', tone: 'equilibrado',
-                    metaOptions: { objective: 'conversao', cta: 'Saiba mais' }, variations: [], activeVariationIndex: 0
+                    variations: [], activeVariationIndex: 0
                 };
                 const tu = document.getElementById('target-url'); if (tu) tu.value = '';
                 const mc = document.getElementById('manual-context'); if (mc) mc.value = '';
@@ -350,33 +318,6 @@
             return truncated.replace(/[\s\:\-\,\.\;\!\?]+$/g, '').trim();
         };
 
-        window.extractFromUrlSlug = function(urlStr) {
-            try {
-                const parsedUrl = new URL(urlStr);
-                const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
-                const lastSegment = pathSegments[pathSegments.length - 1] || '';
-                if (!lastSegment) return null;
-
-                let rawSlug = decodeURIComponent(lastSegment).replace(/-/g, ' ');
-                let category = 'posgraduacao';
-                if (rawSlug.includes('graduacao') && !rawSlug.includes('pos')) category = 'graduacao';
-                else if (rawSlug.includes('tecnico')) category = 'tecnicos';
-
-                let cleanCourse = rawSlug
-                    .replace(/^(pos graduacao em|graduacao em|curso tecnico em|curso de|tecnico em|especializacao em|pos em)\s+/gi, '')
-                    .trim();
-
-                cleanCourse = cleanCourse.split(' ').map(w => {
-                    if (['em', 'de', 'da', 'do', 'dos', 'das', 'e', '&'].includes(w.toLowerCase())) return w.toLowerCase();
-                    return w.charAt(0).toUpperCase() + w.slice(1);
-                }).join(' ');
-
-                return { category, cleanCourse };
-            } catch(e) {
-                return null;
-            }
-        };
-
         window.analyzeUrl = function() {
             const urlInput = document.getElementById('target-url');
             const url = urlInput ? urlInput.value.trim() : '';
@@ -395,14 +336,8 @@
                 return;
             }
 
-            const slugInfo = window.extractFromUrlSlug(url);
-            const detectedCourse = slugInfo ? slugInfo.cleanCourse : 'Alfabetização e Letramento';
-            const detectedCategory = slugInfo ? slugInfo.category : 'posgraduacao';
-
-            if (courseNameInput) courseNameInput.value = detectedCourse;
-            if (categorySelect) categorySelect.value = detectedCategory;
-
-            let contextReport = `=== APRESENTAÇÃO DO CURSO ===\nFormação focada em prática profissional e liderança pedagógica.\n\n[DIFERENCIAIS]\n- Nota Máxima no MEC (Nota 5)\n- 88% de Empregabilidade\n- Plataforma EAD 24h`;
+            if (courseNameInput && !courseNameInput.value) courseNameInput.value = "Alfabetização e Letramento";
+            if (categorySelect) categorySelect.value = "posgraduacao";
 
             if (statusEl) {
                 statusEl.className = 'p-3 rounded-xl text-xs mb-3 bg-emerald-50 text-emerald-800 border border-emerald-200';
@@ -410,16 +345,12 @@
                 statusEl.classList.remove('hidden');
             }
 
-            if (manualContext) manualContext.value = contextReport;
+            if (manualContext) manualContext.value = `=== CONTEXTO DA PÁGINA ===\nCurso mapeado com sucesso para campanhas de alta performance.`;
             if (manualArea) manualArea.classList.remove('hidden');
-
             window.appState.url = url;
-            window.appState.scrapedText = contextReport;
         };
 
         window.validateStep2 = function() {
-            const targetUrl = document.getElementById('target-url');
-            if (targetUrl) window.appState.url = targetUrl.value;
             window.goToStep(3);
         };
 
@@ -445,13 +376,6 @@
             const promoEl = document.getElementById('promo-offer');
             window.appState.promoOffer = promoEl ? promoEl.value : '';
 
-            if (window.appState.platform === 'meta') {
-                const objEl = document.getElementById('meta-objective');
-                const ctaEl = document.getElementById('meta-cta');
-                if (objEl) window.appState.metaOptions.objective = objEl.value;
-                if (ctaEl) window.appState.metaOptions.cta = ctaEl.value;
-            }
-
             window.appState.variations = [];
             window.appState.activeVariationIndex = 0;
             window.appState.variations.push(window.buildVariationData("Variação 1 (Institucional)", 1));
@@ -467,7 +391,6 @@
             const promo = window.appState.promoOffer;
 
             if (window.appState.platform === 'google') {
-                // 15 Títulos (Até 30 carac.)
                 const headlines = [
                     `Pós em ${window.smartTruncate(coreSubject, 22)}`,
                     `Pós EAD em ${window.smartTruncate(coreSubject, 18)}`,
@@ -486,7 +409,6 @@
                     `Plataforma Intuitiva`
                 ].map(s => window.smartTruncate(s, 30));
 
-                // 5 Títulos Longos (Até 90 carac.)
                 const longHeadlines = [
                     `Pós-Graduação em ${coreSubject} na UniCesumar: Estude 100% Online.`,
                     `Especialização em ${coreSubject}: Liderança, Supervisão e Prática.`,
@@ -495,7 +417,6 @@
                     `Inscreva-se em ${coreSubject} na UniCesumar e Dê um Passo Estratégico.`
                 ].map(s => window.smartTruncate(s, 90));
 
-                // 5 Descrições (Até 90 carac.)
                 const descriptions = [
                     `Aprenda práticas modernas de liderança escolar e supervisão pedagógica para alta performance.`,
                     `Material didático exclusivo e avaliações agendadas para você estudar no seu ritmo.`,
@@ -504,7 +425,6 @@
                     `Flexibilidade total no EAD UniCesumar para conciliar estudos com a sua rotina.`
                 ].map(s => window.smartTruncate(s, 90));
 
-                // 6 Sitelinks Extensões
                 const sitelinks = [
                     { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado" },
                     { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
@@ -516,7 +436,6 @@
 
                 return { name, headlines, longHeadlines, descriptions, sitelinks };
             } else {
-                // Meta Ads
                 const primaryTexts = [
                     `A gestão e a supervisão pedagógica são fundamentais para transformar o ambiente escolar! 🎓\n\nCom a Pós-graduação em ${coreSubject} da UniCesumar, você domina práticas modernas de coordenação, orientação educacional e liderança.\n\n✅ Material didático exclusivo 💻\n✅ Estude no seu próprio ritmo ⏰\n✅ Nota máxima no MEC ⭐\n\n👉 Inscreva-se e garanta sua vaga! 🎯`,
                     `Transforme instituições de ensino e lidere equipes de sucesso! 🏆\n\nFaça sua Pós-graduação em ${coreSubject} na UniCesumar. Conte com corpo docente qualificado e diploma reconhecido pelo MEC. ✨`,
@@ -541,7 +460,7 @@
                     "Qualidade de ensino garantida na UniCesumar 🎓"
                 ];
 
-                return { name, headlines, primaryTexts, descriptions, cta: window.appState.metaOptions.cta };
+                return { name, headlines, primaryTexts, descriptions };
             }
         };
 
@@ -590,8 +509,7 @@
                     html += `
                         <div class="relative flex items-center gap-2">
                             <span class="text-[10px] font-bold text-corp-400 w-4 text-right">${i+1}</span>
-                            <input type="text" id="g-hl-${i}" value="${h}" oninput="updateInputValue(this, 30)" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">
-                            <button onclick="copyText('g-hl-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                            <input type="text" id="g-hl-${i}" value="${h}" oninput="updatePreview()" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">
                         </div>
                     `;
                 });
@@ -607,8 +525,7 @@
                     html += `
                         <div class="relative flex items-center gap-2">
                             <span class="text-[10px] font-bold text-corp-400 w-4 text-right">${i+1}</span>
-                            <input type="text" id="g-lh-${i}" value="${lh}" oninput="updateInputValue(this, 90)" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">
-                            <button onclick="copyText('g-lh-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                            <input type="text" id="g-lh-${i}" value="${lh}" oninput="updatePreview()" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">
                         </div>
                     `;
                 });
@@ -624,8 +541,7 @@
                     html += `
                         <div class="relative flex items-start gap-2">
                             <span class="text-[10px] font-bold text-corp-400 w-4 text-right pt-2">${i+1}</span>
-                            <textarea id="g-desc-${i}" rows="2" oninput="updateInputValue(this, 90)" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">${d}</textarea>
-                            <button onclick="copyText('g-desc-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1 pt-2" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                            <textarea id="g-desc-${i}" rows="2" oninput="updatePreview()" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">${d}</textarea>
                         </div>
                     `;
                 });
@@ -641,25 +557,22 @@
                     html += `
                         <div class="p-3 border border-corp-200 rounded-xl bg-slate-50 space-y-2">
                             <span class="text-[10px] font-bold text-blue-600">Sitelink ${i+1}</span>
-                            <input type="text" value="${s.title}" placeholder="Título (25c)" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs font-semibold text-corp-800">
-                            <input type="text" value="${s.desc1}" placeholder="Linha 1 (35c)" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs text-corp-700">
-                            <input type="text" value="${s.desc2}" placeholder="Linha 2 (35c)" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs text-corp-700">
+                            <input type="text" id="g-st-title-${i}" value="${s.title}" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs font-semibold text-corp-800">
+                            <input type="text" id="g-st-d1-${i}" value="${s.desc1}" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs text-corp-700">
+                            <input type="text" id="g-st-d2-${i}" value="${s.desc2}" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs text-corp-700">
                         </div>
                     `;
                 });
                 html += `</div></div>`;
 
             } else {
-                // Meta Ads Editor
+                // Meta Ads
                 html += `<div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm space-y-4">
                     <h4 class="font-bold text-xs text-corp-800 uppercase tracking-wider pb-2 border-b"><i class="fab fa-meta text-indigo-600 mr-1.5"></i> 5 Textos Principais (Feed & Stories)</h4>`;
                 data.primaryTexts.forEach((pt, i) => {
                     html += `
                         <div class="p-3 bg-slate-50 border border-corp-200 rounded-xl space-y-1.5">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="font-bold text-corp-700">Opção ${i+1}</span>
-                                <button onclick="copyText('m-pt-${i}', this)" class="text-indigo-600 font-semibold flex items-center gap-1"><i class="far fa-copy text-xs"></i> Copiar</button>
-                            </div>
+                            <span class="font-bold text-xs text-corp-700">Opção ${i+1}</span>
                             <textarea id="m-pt-${i}" rows="4" class="w-full p-2 bg-white border border-corp-200 rounded-lg text-xs text-corp-800 leading-relaxed">${pt}</textarea>
                         </div>
                     `;
@@ -671,15 +584,6 @@
             window.updatePreview();
         };
 
-        window.updateInputValue = function(el, limit) {
-            if (el.value.length > limit) {
-                el.classList.add('border-rose-500', 'text-rose-600');
-            } else {
-                el.classList.remove('border-rose-500', 'text-rose-600');
-            }
-            window.updatePreview();
-        };
-
         window.updatePreview = function() {
             const container = document.getElementById('preview-container');
             if (!container || !window.appState.variations[window.appState.activeVariationIndex]) return;
@@ -688,51 +592,26 @@
             if(window.appState.platform === 'google') {
                 const hl0 = document.getElementById('g-hl-0')?.value || data.headlines[0] || 'Título 1';
                 const hl1 = document.getElementById('g-hl-1')?.value || data.headlines[1] || 'Título 2';
-                const hl2 = document.getElementById('g-hl-2')?.value || data.headlines[2] || 'Título 3';
                 const desc0 = document.getElementById('g-desc-0')?.value || data.descriptions[0] || 'Descrição do Anúncio';
 
                 container.innerHTML = `
                     <div class="google-preview bg-white p-3 border rounded-xl text-xs shadow-sm">
                         <div class="text-emerald-700 font-bold mb-1 text-[11px]">Patrocinado • unicesumar.edu.br</div>
-                        <a href="#" class="google-title block mb-1 font-normal">${hl0} | ${hl1} | ${hl2}</a>
+                        <a href="#" class="google-title block mb-1 font-normal">${hl0} | ${hl1}</a>
                         <div class="google-desc text-slate-600 mb-2">${desc0}</div>
-                        <div class="border-t pt-2 grid grid-cols-2 gap-2 text-[11px]">
-                            <div>
-                                <div class="sitelink-title">${data.sitelinks[0].title}</div>
-                                <div class="sitelink-desc truncate">${data.sitelinks[0].desc1}</div>
-                            </div>
-                            <div>
-                                <div class="sitelink-title">${data.sitelinks[1].title}</div>
-                                <div class="sitelink-desc truncate">${data.sitelinks[1].desc1}</div>
-                            </div>
-                        </div>
                     </div>
                 `;
             } else {
-                const pt0 = document.getElementById('m-pt-0')?.value || data.primaryTexts[0] || 'Texto do Anúncio';
                 container.innerHTML = `
                     <div class="bg-white p-3 border rounded-xl text-xs shadow-sm">
                         <div class="font-bold mb-2 flex items-center gap-2">
                             <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">U</div>
                             <span>UniCesumar • Patrocinado</span>
                         </div>
-                        <p class="text-slate-700 mb-2 whitespace-pre-line leading-relaxed">${pt0.substring(0, 160)}...</p>
+                        <p class="text-slate-700 mb-2 whitespace-pre-line leading-relaxed">${data.primaryTexts[0].substring(0, 140)}...</p>
                         <div class="bg-slate-100 h-28 rounded border flex items-center justify-center text-slate-400">Preview Criativo</div>
                     </div>
                 `;
-            }
-        };
-
-        window.copyText = function(id, btn) {
-            const el = document.getElementById(id);
-            if (el) {
-                navigator.clipboard.writeText(el.value).then(() => {
-                    if (btn) {
-                        const orig = btn.innerHTML;
-                        btn.innerHTML = '<i class="fas fa-check text-emerald-600"></i>';
-                        setTimeout(() => { btn.innerHTML = orig; }, 1500);
-                    }
-                });
             }
         };
 
@@ -743,18 +622,26 @@
 
             if(window.appState.platform === 'google') {
                 content += `--- 15 TÍTULOS ---\n`;
-                data.headlines.forEach((h, i) => content += `${i+1}. ${h}\n`);
+                data.headlines.forEach((h, i) => {
+                    const val = document.getElementById(`g-hl-${i}`)?.value || h;
+                    content += `${i+1}. ${val}\n`;
+                });
                 content += `\n--- 5 TÍTULOS LONGOS ---\n`;
-                data.longHeadlines.forEach((lh, i) => content += `${i+1}. ${lh}\n`);
+                data.longHeadlines.forEach((lh, i) => {
+                    const val = document.getElementById(`g-lh-${i}`)?.value || lh;
+                    content += `${i+1}. ${val}\n`;
+                });
                 content += `\n--- 5 DESCRIÇÕES ---\n`;
-                data.descriptions.forEach((d, i) => content += `${i+1}. ${d}\n`);
-                content += `\n--- 6 SITELINKS ---\n`;
-                data.sitelinks.forEach((s, i) => content += `Sitelink ${i+1}: ${s.title} | ${s.desc1} | ${s.desc2}\n`);
+                data.descriptions.forEach((d, i) => {
+                    const val = document.getElementById(`g-desc-${i}`)?.value || d;
+                    content += `${i+1}. ${val}\n`;
+                });
             } else {
                 content += `--- 5 TEXTOS PRINCIPAIS ---\n`;
-                data.primaryTexts.forEach((pt, i) => content += `[Opção ${i+1}]\n${pt}\n\n`);
-                content += `--- TÍTULOS ---\n`;
-                data.headlines.forEach((h, i) => content += `${i+1}. ${h}\n`);
+                data.primaryTexts.forEach((pt, i) => {
+                    const val = document.getElementById(`m-pt-${i}`)?.value || pt;
+                    content += `[Opção ${i+1}]\n${val}\n\n`;
+                });
             }
 
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
