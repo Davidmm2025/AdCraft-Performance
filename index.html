@@ -334,7 +334,7 @@
                 <span>— Validação Sintática & Regras Oficiais de Tráfego</span>
             </div>
             <div>
-                <span>Versão 3.2 Pro</span>
+                <span>Versão 3.3 Pro</span>
             </div>
         </div>
     </footer>
@@ -500,8 +500,14 @@
                     return;
                 }
 
+                // [FIX] Reset completo de estado prévio antes da nova extração
+                this.state.scrapedText = '';
+                this.state.extractedParagraphs = [];
+                if (courseNameInput) courseNameInput.value = '';
+                manualContext.value = '';
+
                 statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-2';
-                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin text-blue-600 text-sm"></i> Extraindo dados da página e parágrafos de apresentação...';
+                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin text-blue-600 text-sm"></i> Limpando dados anteriores e extraindo novos parágrafos da URL...';
                 statusEl.classList.remove('hidden');
 
                 const slugInfo = this.extractFromUrlSlug(url);
