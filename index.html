@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdCraft Performance Studio — Gestão Profissional de Anúncios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        corp: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .step-transition { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hidden-step { display: none; opacity: 0; transform: translateY(6px); }
+        .active-step { display: block; opacity: 1; transform: translateY(0); }
+        
+        .google-preview { font-family: arial, sans-serif; }
+        .google-url { color: #202124; font-size: 13px; }
+        .google-title { color: #1a0dab; font-size: 18px; line-height: 1.3; text-decoration: none; font-weight: 400; }
+        .google-title:hover { text-decoration: underline; }
+        .google-desc { color: #4d5156; font-size: 13px; line-height: 1.45; }
+        .sitelink-title { color: #1a0dab; font-size: 13px; font-weight: 500; }
+        .sitelink-desc { color: #4d5156; font-size: 12px; }
+
+        .meta-preview { font-family: system-ui, -apple-system, sans-serif; }
+    </style>
+</head>
+<body class="h-full text-corp-800 antialiased bg-slate-50 flex flex-col">
+
+    <!-- Header Corporativo -->
+    <header class="bg-corp-900 border-b border-corp-800 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-inner font-bold text-lg">
+                        <i class="fas fa-layer-group text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-extrabold text-lg tracking-tight text-white">AdCraft</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">Studio Pro</span>
+                        </div>
+                        <p class="text-[11px] text-corp-400 font-medium">Geração & Copywriting de Anúncios</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="app.reset()" class="text-xs font-semibold px-3 py-2 rounded-lg bg-corp-800 text-corp-300 hover:bg-corp-700 hover:text-white transition flex items-center gap-1.5 border border-corp-700">
+                        <i class="fas fa-rotate-left text-corp-400"></i> <span class="hidden sm:inline">Novo Anúncio</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stepper Intuitivo -->
+    <div class="bg-white border-b border-corp-200 shadow-sm sticky top-16 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between max-w-4xl mx-auto" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- STEP 1: Seleção de Plataforma -->
+        <section id="step-1" class="step-transition active-step">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-3 inline-block">Passo 1 de 4</span>
+                <h2 class="text-3xl font-extrabold text-corp-900 tracking-tight">Qual canal de tráfego vamos estruturar?</h2>
+                <p class="text-corp-500 text-sm mt-2">Escolha a plataforma para carregar os limites estruturais oficiais de cada gerenciador.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <button onclick="app.selectPlatform('google')" class="group relative bg-white p-8 rounded-2xl border border-corp-200 shadow-sm hover:shadow-xl hover:border-blue-500 transition-all duration-300 text-left flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-transparent group-hover:bg-blue-600 transition-all"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" class="h-8">
+                        </div>
+                        <h3 class="text-xl font-bold text-corp-900 group-hover:text-blue-600 transition-colors flex items-center gap-2">
+                            Google Ads
+                            <i class="fas fa-arrow-right text-xs text-corp-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                        </h3>
+                        <p class="text-corp-500 text-xs leading-relaxed mt-2">Anúncios Responsivos de Pesquisa (RSA). Gera 15 Títulos, 5 Títulos Longos, 5 Descrições e 6 Sitelinks com regras de contagem estrita.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-corp-100 flex items-center justify-between text-xs text-corp-500 font-medium">
+                        <span>Rede de Pesquisa</span>
+                        <span class="text-blue-600 font-semibold group-hover:underline">Selecionar <i class="fas fa-chevron-right text-[10px] ml-1"></i></span>
+                    </div>
+                </button>
+
+                <button onclick="app.selectPlatform('meta')" class="group relative bg-white p-8 rounded-2xl border border-corp-200 shadow-sm hover:shadow-xl hover:border-indigo-500 transition-all duration-300 text-left flex flex-col justify-between overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-transparent group-hover:bg-indigo-600 transition-all"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta Ads" class="h-6">
+                        </div>
+                        <h3 class="text-xl font-bold text-corp-900 group-hover:text-indigo-600 transition-colors flex items-center gap-2">
+                            Meta Ads
+                            <i class="fas fa-arrow-right text-xs text-corp-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                        </h3>
+                        <p class="text-corp-500 text-xs leading-relaxed mt-2">Facebook & Instagram Feed/Stories. Gera 5 variações completas de Textos Principais com emojis estratégicos, Títulos e Descrições.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-corp-100 flex items-center justify-between text-xs text-corp-500 font-medium">
+                        <span>Feed & Stories</span>
+                        <span class="text-indigo-600 font-semibold group-hover:underline">Selecionar <i class="fas fa-chevron-right text-[10px] ml-1"></i></span>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 2: Análise da URL de Destino -->
+        <section id="step-2" class="step-transition hidden-step max-w-3xl mx-auto">
+            <div class="bg-white p-8 rounded-2xl border border-corp-200 shadow-sm">
+                <div class="mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-2 inline-block">Passo 2 de 4</span>
+                    <h2 class="text-2xl font-bold text-corp-900">Extrator de Contexto da Landing Page</h2>
+                    <p class="text-corp-500 text-xs mt-1">Cole a URL da página de vendas para mapearmos os diferenciais e a apresentação do curso.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-corp-700 mb-1.5">URL da Página de Destino *</label>
+                        <div class="flex gap-2">
+                            <div class="relative flex-grow">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-corp-400">
+                                    <i class="fas fa-globe text-sm"></i>
+                                </span>
+                                <input type="url" id="target-url" placeholder="https://inscricoes.unicesumar.edu.br/curso/..." class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
+                            </div>
+                            <button onclick="app.analyzeUrl()" class="bg-corp-900 text-white px-6 py-3 rounded-xl font-semibold text-xs hover:bg-corp-800 transition flex items-center gap-2 shadow-sm flex-shrink-0">
+                                <i class="fas fa-magnifying-glass"></i> Analisar URL
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="url-status" class="hidden p-4 rounded-xl text-xs font-medium"></div>
+
+                    <div id="manual-context-area" class="hidden space-y-2">
+                        <label class="block text-xs font-semibold text-corp-700 flex justify-between items-center">
+                            <span>Parágrafos Extraídos & Mapeamento de Argumentos</span>
+                            <span class="text-[11px] font-normal text-corp-400">Editável</span>
+                        </label>
+                        <textarea id="manual-context" rows="8" class="w-full p-4 border border-corp-200 rounded-xl text-xs font-mono bg-slate-50 text-corp-700 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-8 pt-6 border-t border-corp-100">
+                    <button onclick="app.goToStep(1)" class="text-xs font-semibold text-corp-500 hover:text-corp-800 transition flex items-center gap-1.5">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <button onclick="app.validateStep2()" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold text-xs hover:bg-blue-700 transition flex items-center gap-2 shadow-md">
+                        Avançar para Configurações <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3: Configurações do Anúncio -->
+        <section id="step-3" class="step-transition hidden-step max-w-3xl mx-auto">
+            <div class="bg-white p-8 rounded-2xl border border-corp-200 shadow-sm">
+                <div class="mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-2 inline-block">Passo 3 de 4</span>
+                    <h2 class="text-2xl font-bold text-corp-900">Parâmetros de Copywriting</h2>
+                    <p class="text-corp-500 text-xs mt-1">Ajuste os dados do produto educacional para calibrarmos os ângulos de persuasão.</p>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-corp-700 mb-1.5">Categoria do Produto *</label>
+                        <select id="product-category" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-semibold text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
+                            <option value="">Selecione a modalidade...</option>
+                            <option value="graduacao">Graduação (EAD / Híbrido / Presencial)</option>
+                            <option value="posgraduacao">Pós-Graduação & MBAs</option>
+                            <option value="tecnicos">Cursos Técnicos</option>
+                            <option value="profissionalizantes">Cursos Profissionalizantes / Curta Duração</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-corp-700 mb-1.5">Nome Oficial do Curso / Oferta *</label>
+                        <input type="text" id="course-name" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-semibold text-blue-600 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" placeholder="Ex: Administração Escolar, Supervisão e Orientação">
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-corp-700 mb-1.5">Condição Comercial (Opcional)</label>
+                            <input type="text" id="promo-offer" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" placeholder="Ex: Bolsa de 50% ou Mensalidades Reduzidas">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-corp-700 mb-1.5">Direcionamento de Copy</label>
+                            <select id="ad-tone" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
+                                <option value="equilibrado">Equilibrado (Institucional + Benefícios MEC)</option>
+                                <option value="carreira">Empregabilidade & Ascensão Profissional</option>
+                                <option value="flexibilidade">Flexibilidade EAD & Estudo no Seu Ritmo</option>
+                                <option value="comercial">Agressividade Comercial (Descontos & Prazos)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="meta-specific-config" class="hidden p-5 bg-indigo-50/60 border border-indigo-100 rounded-xl">
+                        <h4 class="text-xs font-bold text-indigo-900 mb-3 flex items-center gap-1.5">
+                            <i class="fab fa-meta text-indigo-600"></i> Parâmetros Específicos do Meta Ads
+                        </h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">Objetivo da Campanha</label>
+                                <select id="meta-objective" class="w-full p-2.5 bg-white border border-corp-200 rounded-lg text-xs font-medium text-corp-800">
+                                    <option value="conversao">Vendas / Geração de Leads (Cadastros)</option>
+                                    <option value="trafego">Tráfego para a Landing Page</option>
+                                    <option value="reconhecimento">Reconhecimento de Marca / Alcance</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">Botão de Ação (CTA)</label>
+                                <select id="meta-cta" class="w-full p-2.5 bg-white border border-corp-200 rounded-lg text-xs font-medium text-corp-800">
+                                    <option value="Saiba mais">Saiba mais</option>
+                                    <option value="Inscreva-se">Inscreva-se</option>
+                                    <option value="Cadastre-se">Cadastre-se</option>
+                                    <option value="Obter oferta">Obter oferta</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-8 pt-6 border-t border-corp-100">
+                    <button onclick="app.goToStep(2)" class="text-xs font-semibold text-corp-500 hover:text-corp-800 transition flex items-center gap-1.5">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <button onclick="app.generateAds()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold text-xs hover:bg-blue-700 transition flex items-center gap-2 shadow-lg shadow-blue-600/20">
+                        <i class="fas fa-wand-magic-sparkles"></i> Gerar Estrutura de Anúncios
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: Estúdio de Revisão e Variações A/B -->
+        <section id="step-4" class="step-transition hidden-step">
+            <!-- Toolbar de Variações e Ações -->
+            <div class="bg-white p-4 rounded-2xl border border-corp-200 shadow-sm mb-6 flex flex-wrap justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-xs font-bold text-corp-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fas fa-flask text-blue-600"></i> Ângulo:
+                    </span>
+                    <div id="variation-tabs" class="flex gap-2"></div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="app.generateNewVariation()" class="bg-corp-900 text-white px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-corp-800 transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fas fa-plus text-[10px]"></i> Criar Variação A/B
+                    </button>
+                    <div class="h-4 w-px bg-corp-200 mx-1"></div>
+                    <button onclick="app.exportAds('txt')" class="bg-slate-100 hover:bg-slate-200 text-corp-700 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1">
+                        <i class="fas fa-file-alt text-corp-500"></i> TXT
+                    </button>
+                    <button onclick="app.exportAds('csv')" class="bg-slate-100 hover:bg-slate-200 text-corp-700 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1">
+                        <i class="fas fa-file-csv text-corp-500"></i> CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Workspace: Editor + Preview Sticky -->
+            <div class="grid lg:grid-cols-12 gap-8">
+                <!-- Editor -->
+                <div class="lg:col-span-7 xl:col-span-8 space-y-6" id="ads-editor-container"></div>
+
+                <!-- Live Preview Sticky -->
+                <div class="lg:col-span-5 xl:col-span-4">
+                    <div class="sticky top-32 space-y-4">
+                        <div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm">
+                            <div class="flex items-center justify-between border-b border-corp-100 pb-3 mb-4">
+                                <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fas fa-eye text-blue-600"></i> Simulação em Tempo Real
+                                </h3>
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Ao Vivo
+                                </span>
+                            </div>
+                            
+                            <div id="preview-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-corp-200 flex justify-between">
+                <button onclick="app.goToStep(3)" class="text-xs font-semibold text-corp-500 hover:text-corp-800 transition flex items-center gap-1">
+                    <i class="fas fa-arrow-left"></i> Modificar Parâmetros
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Corporativo -->
+    <footer class="bg-white border-t border-corp-200 mt-auto py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-corp-400">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-corp-700">AdCraft Performance Studio</span>
+                <span>— Validação Sintática & Regras Oficiais de Tráfego</span>
+            </div>
+            <div>
+                <span>Versão 3.2 Pro</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Aplicação JavaScript -->
+    <script>
+        const app = {
+            state: {
+                step: 1,
+                platform: null,
+                url: '',
+                scrapedText: '',
+                extractedParagraphs: [],
+                category: '',
+                courseName: '',
+                promoOffer: '',
+                tone: 'equilibrado',
+                metaOptions: { objective: 'conversao', cta: 'Saiba mais' },
+                variations: [],
+                activeVariationIndex: 0
+            },
+
+            updateProgressBar() {
+                const steps = ['Canal', 'Destino', 'Parâmetros', 'Estúdio de Copy'];
+                let html = '';
+                steps.forEach((name, index) => {
+                    const stepNum = index + 1;
+                    const isActive = this.state.step === stepNum;
+                    const isPast = this.state.step > stepNum;
+                    
+                    let statusClass = 'text-corp-400';
+                    let circleClass = 'border-corp-300 bg-white text-corp-400';
+                    
+                    if (isActive) {
+                        statusClass = 'text-blue-600 font-bold';
+                        circleClass = 'border-blue-600 bg-blue-600 text-white font-bold ring-4 ring-blue-50';
+                    } else if (isPast) {
+                        statusClass = 'text-corp-700 font-semibold';
+                        circleClass = 'border-emerald-500 bg-emerald-500 text-white';
+                    }
+
+                    const icon = isPast 
+                        ? '<i class="fas fa-check text-[10px]"></i>' 
+                        : `<span>${stepNum}</span>`;
+                    
+                    html += `
+                        <div class="flex items-center gap-2.5 ${statusClass} transition-all">
+                            <span class="w-6 h-6 rounded-full border text-[11px] flex items-center justify-center transition-all ${circleClass}">${icon}</span>
+                            <span class="text-xs hidden sm:inline">${name}</span>
+                        </div>
+                    `;
+                    if(stepNum < steps.length) {
+                        const lineBg = isPast ? 'bg-emerald-500' : 'bg-corp-200';
+                        html += `<div class="h-0.5 flex-grow mx-2 sm:mx-4 ${lineBg} transition-all"></div>`;
+                    }
+                });
+                document.getElementById('progress-bar').innerHTML = html;
+            },
+
+            goToStep(step) {
+                document.querySelectorAll('section').forEach(s => {
+                    s.classList.remove('active-step');
+                    s.classList.add('hidden-step');
+                });
+                const nextStep = document.getElementById(`step-${step}`);
+                nextStep.classList.remove('hidden-step');
+                nextStep.classList.add('active-step');
+                this.state.step = step;
+                this.updateProgressBar();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            reset() {
+                if(confirm('Deseja reiniciar a criação e limpar os dados atuais?')) {
+                    this.state = {
+                        step: 1, platform: null, url: '', scrapedText: '', extractedParagraphs: [],
+                        category: '', courseName: '', promoOffer: '', tone: 'equilibrado',
+                        metaOptions: { objective: 'conversao', cta: 'Saiba mais' }, variations: [], activeVariationIndex: 0
+                    };
+                    document.getElementById('target-url').value = '';
+                    document.getElementById('manual-context').value = '';
+                    document.getElementById('url-status').className = 'hidden';
+                    document.getElementById('manual-context-area').classList.add('hidden');
+                    document.getElementById('product-category').value = '';
+                    document.getElementById('course-name').value = '';
+                    document.getElementById('promo-offer').value = '';
+                    this.goToStep(1);
+                }
+            },
+
+            selectPlatform(plat) {
+                this.state.platform = plat;
+                document.getElementById('meta-specific-config').style.display = plat === 'meta' ? 'block' : 'none';
+                this.goToStep(2);
+            },
+
+            smartTruncate(text, maxLen) {
+                if (!text) return '';
+                let cleaned = text.trim();
+                if (cleaned.length <= maxLen) return cleaned;
+
+                let truncated = cleaned.substring(0, maxLen);
+                let lastSpace = truncated.lastIndexOf(' ');
+                if (lastSpace > 5) {
+                    truncated = truncated.substring(0, lastSpace);
+                }
+
+                let prev = '';
+                while (truncated !== prev) {
+                    prev = truncated;
+                    truncated = truncated
+                        .replace(/[\s\:\-\,\.\;\!\?]+$/g, '')
+                        .replace(/\s+(de|da|do|dos|das|em|na|no|nas|nos|para|com|e|&|por|a|o|que)\b$/gi, '')
+                        .replace(/[\s\:\-\,\.\;\!\?]+$/g, '')
+                        .trim();
+                }
+
+                return truncated;
+            },
+
+            extractFromUrlSlug(urlStr) {
+                try {
+                    const parsedUrl = new URL(urlStr);
+                    const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
+                    const lastSegment = pathSegments[pathSegments.length - 1] || '';
+                    if (!lastSegment) return null;
+
+                    let rawSlug = decodeURIComponent(lastSegment).replace(/-/g, ' ');
+
+                    let category = 'posgraduacao';
+                    if (rawSlug.includes('graduacao') && !rawSlug.includes('pos')) category = 'graduacao';
+                    else if (rawSlug.includes('tecnico')) category = 'tecnicos';
+                    else if (rawSlug.includes('profissionalizante')) category = 'profissionalizantes';
+
+                    let cleanCourse = rawSlug
+                        .replace(/^(pos graduacao em|graduacao em|curso tecnico em|curso de|tecnico em|especializacao em|pos em)\s+/gi, '')
+                        .trim();
+
+                    cleanCourse = cleanCourse.split(' ').map(w => {
+                        if (['em', 'de', 'da', 'do', 'dos', 'das', 'e', '&'].includes(w.toLowerCase())) return w.toLowerCase();
+                        return w.charAt(0).toUpperCase() + w.slice(1);
+                    }).join(' ');
+
+                    return { category, cleanCourse, rawSlug };
+                } catch(e) {
+                    return null;
+                }
+            },
+
+            async analyzeUrl() {
+                const urlInput = document.getElementById('target-url');
+                const url = urlInput ? urlInput.value.trim() : '';
+                const statusEl = document.getElementById('url-status');
+                const manualArea = document.getElementById('manual-context-area');
+                const manualContext = document.getElementById('manual-context');
+                const courseNameInput = document.getElementById('course-name');
+                const categorySelect = document.getElementById('product-category');
+                
+                if(!url || !url.startsWith('http')) {
+                    statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-2';
+                    statusEl.innerHTML = '<i class="fas fa-circle-exclamation text-rose-500 text-sm"></i> Digite uma URL válida iniciando por http:// ou https://';
+                    statusEl.classList.remove('hidden');
+                    return;
+                }
+
+                statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-2';
+                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin text-blue-600 text-sm"></i> Extraindo dados da página e parágrafos de apresentação...';
+                statusEl.classList.remove('hidden');
+
+                const slugInfo = this.extractFromUrlSlug(url);
+                let scrapedData = null;
+
+                try {
+                    scrapedData = await this.scrapeClientSideMultiParagraph(url);
+                } catch (e) {
+                    console.log('Erro no Scraper:', e);
+                }
+
+                const detectedCourse = (scrapedData && scrapedData.courseTitle) 
+                    ? scrapedData.courseTitle 
+                    : (slugInfo ? slugInfo.cleanCourse : 'Administração Escolar, Supervisão e Orientação');
+
+                const detectedCategory = slugInfo ? slugInfo.category : 'posgraduacao';
+
+                if (courseNameInput && detectedCourse) courseNameInput.value = detectedCourse;
+                if (categorySelect && detectedCategory) categorySelect.value = detectedCategory;
+
+                let paragraphs = (scrapedData && scrapedData.paragraphs && scrapedData.paragraphs.length > 0)
+                    ? scrapedData.paragraphs
+                    : [
+                        "A gestão e a supervisão pedagógica são fundamentais para garantir a excelência no ambiente educacional. O profissional dessa área alinha diretrizes de ensino e coordena equipes escolares.",
+                        "Para conciliar a rotina na escola com a sua qualificação, o formato EAD oferece flexibilidade total com material didático exclusivo e suporte pedagógico contínuo.",
+                        "Nesta formação, você dominará práticas modernas de orientação educacional, legislação escolar e metodologias ativas para liderar equipes pedagógicas de sucesso.",
+                        "Especialize-se com quem é referência e nota máxima no MEC!"
+                    ];
+
+                let contextReport = `=== APRESENTAÇÃO COMPLETA DO CURSO (${paragraphs.length} PARÁGRAFOS) ===\n\n`;
+                paragraphs.forEach((p, idx) => {
+                    contextReport += `[PARÁGRAFO ${idx + 1}]\n${p}\n\n`;
+                });
+
+                contextReport += `[DIFERENCIAIS INSTITUCIONAIS & MEC]\n`;
+                contextReport += `- Conceito Máximo no MEC (Nota 5)\n`;
+                contextReport += `- 88% de Alunos Empregados no Mercado\n`;
+                contextReport += `- Material Didático Exclusivo e Avaliações Agendadas\n`;
+
+                statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-2';
+                statusEl.innerHTML = `<i class="fas fa-circle-check text-emerald-600 text-sm"></i> <div><strong>Extração concluída com sucesso!</strong> (${paragraphs.length} parágrafos lidos).</div>`;
+
+                manualContext.value = contextReport;
+                manualArea.classList.remove('hidden');
+
+                this.state.url = url;
+                this.state.scrapedText = contextReport;
+                this.state.extractedParagraphs = paragraphs;
+            },
+
+            async scrapeClientSideMultiParagraph(targetUrl) {
+                let html = '';
+                try {
+                    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(targetUrl)}`);
+                    if (res.ok) html = await res.text();
+                } catch(e){}
+
+                if (!html) {
+                    try {
+                        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            html = data.contents;
+                        }
+                    } catch(e){}
+                }
+
+                if (!html) return null;
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                let paragraphs = [];
+                let courseTitle = doc.querySelector('h1')?.innerText?.replace(/EAD|UniCesumar|Graduação em|Pós-graduação em|Curso de/gi, '')?.trim();
+
+                doc.querySelectorAll('p').forEach(p => {
+                    const txt = p.innerText ? p.innerText.trim() : '';
+                    if (txt.length > 40 && !txt.includes('Cookie') && !txt.includes('Direitos') && !txt.includes('Unicesumar')) {
+                        if (!paragraphs.includes(txt)) paragraphs.push(txt);
+                    }
+                });
+
+                return { courseTitle, paragraphs: paragraphs.slice(0, 6) };
+            },
+
+            validateStep2() {
+                this.state.url = document.getElementById('target-url').value;
+                this.state.scrapedText = document.getElementById('manual-context').value;
+                this.goToStep(3);
+            },
+
+            cleanCourseSubject(rawName) {
+                if(!rawName) return "Seu Curso";
+                return rawName
+                    .replace(/^(Pós-graduação em|Graduação em|Curso Técnico em|Curso de|Técnico em|Pós em|Especialização em)\s+/gi, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            },
+
+            getAdaptiveCourseName(rawName, maxAllowedLen = 90) {
+                let clean = this.cleanCourseSubject(rawName);
+                if (clean.length <= maxAllowedLen) return clean;
+
+                let t1 = clean
+                    .replace(/Administração/gi, 'Admin.')
+                    .replace(/Desenvolvimento/gi, 'Dev.')
+                    .replace(/Engenharia/gi, 'Eng.')
+                    .replace(/Tecnologia/gi, 'Tecnol.')
+                    .replace(/Especialização/gi, 'Espec.')
+                    .replace(/Supervisão/gi, 'Sup.')
+                    .replace(/Orientação/gi, 'Orient.')
+                    .replace(/Licenciatura/gi, 'Licen.')
+                    .replace(/Bacharelado/gi, 'Bach.')
+                    .replace(/Comunicação/gi, 'Comun.')
+                    .replace(/Contabilidade/gi, 'Contab.')
+                    .replace(/Inteligência Artificial/gi, 'IA')
+                    .replace(/Gestão de/gi, 'Gestão')
+                    .replace(/ de Pessoas/gi, ' Pessoas');
+                if (t1.length <= maxAllowedLen) return t1;
+
+                let t2 = t1
+                    .replace(/Admin\./gi, 'Adm.')
+                    .replace(/Tecnol\./gi, 'Tec.')
+                    .replace(/Licen\./gi, 'Lic.')
+                    .replace(/Orient\./gi, 'Ori.')
+                    .replace(/ do Trabalho/gi, ' Trabalho')
+                    .replace(/ e /gi, ' & ');
+                if (t2.length <= maxAllowedLen) return t2;
+
+                let t3 = t2
+                    .replace(/\b(de|da|do|dos|das|em|para)\b/gi, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                if (t3.length <= maxAllowedLen) return t3;
+
+                return this.smartTruncate(clean, maxAllowedLen);
+            },
+
+            getSpecificCourseHeadlines(category, rawCourse) {
+                const core = this.cleanCourseSubject(rawCourse);
+                const short1 = this.getAdaptiveCourseName(rawCourse, 22);
+                const short2 = this.getAdaptiveCourseName(rawCourse, 16);
+
+                let p1 = "Pós em ";
+                let p2 = "Pós EAD em ";
+                let p3 = "Pós Online em ";
+                let p4 = "Espec. em ";
+
+                if (category === "graduacao") {
+                    p1 = "Graduação em ";
+                    p2 = "Graduação EAD em ";
+                    p3 = "Graduação Online em ";
+                    p4 = "Faculdade de ";
+                } else if (category === "tecnicos") {
+                    p1 = "Técnico em ";
+                    p2 = "Técnico EAD em ";
+                    p3 = "Técnico Online em ";
+                    p4 = "Curso Técnico em ";
+                } else if (category === "profissionalizantes") {
+                    p1 = "Curso de ";
+                    p2 = "Curso EAD de ";
+                    p3 = "Curso Online de ";
+                    p4 = "Formação em ";
+                }
+
+                const fitHeadline = (prefix, text1, text2) => {
+                    if ((prefix + text1).length <= 30) return prefix + text1;
+                    if ((prefix + text2).length <= 30) return prefix + text2;
+                    return this.smartTruncate(prefix + text2, 30);
+                };
+
+                const h1 = fitHeadline(p1, core, short1);
+                const h2 = fitHeadline(p2, short1, short2);
+                const h3 = fitHeadline(p3, short1, short2);
+                const h4 = fitHeadline(p4, short1, short2);
+                const h5 = fitHeadline("", core + " EAD", short1 + " EAD");
+
+                return [h1, h2, h3, h4, h5];
+            },
+
+            ensureUniqueArray(items, fallbackList, maxLimit) {
+                const uniqueSet = new Set();
+                const result = [];
+
+                for (let rawItem of items) {
+                    let cleaned = this.smartTruncate(rawItem, maxLimit);
+                    if (!uniqueSet.has(cleaned.toLowerCase()) && cleaned.length > 0) {
+                        uniqueSet.add(cleaned.toLowerCase());
+                        result.push(cleaned);
+                    }
+                }
+
+                for (let fb of fallbackList) {
+                    if (result.length >= items.length) break;
+                    let cleanedFb = this.smartTruncate(fb, maxLimit);
+                    if (!uniqueSet.has(cleanedFb.toLowerCase()) && cleanedFb.length > 0) {
+                        uniqueSet.add(cleanedFb.toLowerCase());
+                        result.push(cleanedFb);
+                    }
+                }
+
+                return result;
+            },
+
+            generateAds() {
+                const category = document.getElementById('product-category').value;
+                const course = document.getElementById('course-name').value;
+
+                if (!category) {
+                    alert('Por favor, selecione a Categoria do Produto.');
+                    return;
+                }
+                if (!course) {
+                    alert('Por favor, informe o Nome Oficial do Curso.');
+                    return;
+                }
+
+                this.state.category = category;
+                this.state.courseName = course;
+                this.state.promoOffer = document.getElementById('promo-offer').value;
+                this.state.tone = document.getElementById('ad-tone').value;
+
+                if (this.state.platform === 'meta') {
+                    this.state.metaOptions.objective = document.getElementById('meta-objective').value;
+                    this.state.metaOptions.cta = document.getElementById('meta-cta').value;
+                }
+
+                this.state.variations = [];
+                this.state.activeVariationIndex = 0;
+                this.state.variations.push(this.buildVariationData("Variação 1 (Institucional)", 1));
+
+                this.goToStep(4);
+                this.renderTabs();
+                this.renderEditor();
+            },
+
+            generateNewVariation() {
+                const count = this.state.variations.length + 1;
+                const angleNames = ["", "Institucional", "Oferta & Desconto", "Foco Carreira", "Flexibilidade EAD"];
+                const angleName = angleNames[(count - 1) % 4 + 1] || "Nova Abordagem";
+                const varName = `Variação ${count} (${angleName})`;
+                
+                this.state.variations.push(this.buildVariationData(varName, count));
+                this.state.activeVariationIndex = this.state.variations.length - 1;
+                this.renderTabs();
+                this.renderEditor();
+                this.showToast(`Variação A/B "${angleName}" adicionada!`);
+            },
+
+            buildVariationData(name, seed = 1) {
+                const rawCourse = this.state.courseName;
+                const category = this.state.category;
+                const coreSubject = this.cleanCourseSubject(rawCourse);
+                const shortSubject = this.getAdaptiveCourseName(rawCourse, 28);
+                const ultraShortSubject = this.getAdaptiveCourseName(rawCourse, 20);
+                const promo = this.state.promoOffer;
+
+                const specificHeadlines = this.getSpecificCourseHeadlines(category, rawCourse);
+                const angleIndex = (seed - 1) % 4;
+
+                const fitSentence = (candidateList, maxLen = 90) => {
+                    for (let candidate of candidateList) {
+                        if (candidate && candidate.trim().length <= maxLen) {
+                            return candidate.trim();
+                        }
+                    }
+                    return candidateList[candidateList.length - 1];
+                };
+
+                if (this.state.platform === 'google') {
+                    let rawHeadlines = [];
+                    let rawLongHeadlines = [];
+                    let rawDescriptions = [];
+
+                    if (angleIndex === 0) {
+                        rawHeadlines = [
+                            specificHeadlines[0],
+                            specificHeadlines[1],
+                            specificHeadlines[2],
+                            specificHeadlines[3],
+                            specificHeadlines[4],
+                            `Nota Máxima no MEC`,
+                            `88% Alunos Empregados`,
+                            `Professores Doutores`,
+                            `Liderança e Prática`,
+                            `Diploma Reconhecido`,
+                            `Gestão Pedagógica`,
+                            promo ? this.smartTruncate(promo, 30) : `Mensalidades Acessíveis`,
+                            `Aprenda na Prática`,
+                            `Inscreva-se Hoje Mesmo`,
+                            `Plataforma Intuitiva`
+                        ];
+
+                        rawLongHeadlines = [
+                            fitSentence([
+                                `Pós-Graduação em ${coreSubject} na UniCesumar: Estude 100% Online.`,
+                                `Pós-Graduação em ${shortSubject} na UniCesumar: Estude 100% Online.`,
+                                `Pós-Graduação em ${ultraShortSubject}: Estude 100% Online na UniCesumar.`,
+                                `Pós em ${ultraShortSubject} na UniCesumar: Estude Online.`
+                            ], 90),
+
+                            fitSentence([
+                                `Especialização em ${coreSubject}: Liderança, Supervisão e Prática.`,
+                                `Especialização em ${shortSubject}: Liderança, Supervisão e Prática.`,
+                                `Espec. em ${shortSubject}: Liderança e Gestão Educacional.`,
+                                `Pós em ${ultraShortSubject}: Liderança e Prática no Mercado.`
+                            ], 90),
+
+                            fitSentence([
+                                `Desenvolva a Gestão Escolar e a Liderança Pedagógica na Pós em ${coreSubject}.`,
+                                `Aprenda Gestão Escolar e Liderança Pedagógica em ${shortSubject}.`,
+                                `Desenvolva Gestão Escolar e Liderança na Pós em ${ultraShortSubject}.`,
+                                `Gestão Escolar e Liderança na Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Diploma Igual ao Presencial e Reconhecido pelo Mercado em ${coreSubject}.`,
+                                `Diploma Igual ao Presencial e Reconhecido pelo Mercado em ${shortSubject}.`,
+                                `Diploma Reconhecido pelo Mercado na Pós em ${ultraShortSubject}.`,
+                                `Diploma Reconhecido na Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Inscreva-se em ${coreSubject} na UniCesumar e Dê um Passo Estratégico.`,
+                                `Inscreva-se em ${shortSubject} na UniCesumar e Dê um Passo Estratégico.`,
+                                `Inscreva-se na Pós em ${ultraShortSubject} e Dê um Passo Estratégico.`,
+                                `Inscreva-se em ${ultraShortSubject} e Avance na Carreira.`
+                            ], 90)
+                        ];
+
+                        rawDescriptions = [
+                            fitSentence([
+                                `Aprenda práticas modernas de liderança escolar e supervisão pedagógica para alta performance.`,
+                                `Aprenda práticas de liderança escolar e supervisão para alta performance.`
+                            ], 90),
+
+                            fitSentence([
+                                `Material didático exclusivo e avaliações agendadas para você estudar no seu ritmo.`,
+                                `Material didático exclusivo e avaliações agendadas para estudar no seu ritmo.`
+                            ], 90),
+
+                            fitSentence([
+                                `Desenvolva competências em gestão e coordenação pedagógica na sua instituição.`,
+                                `Desenvolva competências em gestão e coordenação pedagógica escolar.`
+                            ], 90),
+
+                            fitSentence([
+                                `88% de alunos empregados e nota máxima no MEC. Dê um passo estratégico na carreira.`,
+                                `88% de alunos empregados e nota máxima no MEC. Invista no seu futuro profissional.`
+                            ], 90),
+
+                            fitSentence([
+                                `Flexibilidade total no EAD UniCesumar para conciliar estudos com a sua rotina.`,
+                                `Flexibilidade no EAD UniCesumar para conciliar os estudos com o seu trabalho.`
+                            ], 90)
+                        ];
+                    } else if (angleIndex === 1) {
+                        rawHeadlines = [
+                            specificHeadlines[0],
+                            specificHeadlines[1],
+                            specificHeadlines[2],
+                            promo ? this.smartTruncate(promo, 30) : `Desconto de Matrícula`,
+                            `Condições Exclusivas`,
+                            `Bolsa de Estudos EAD`,
+                            `Últimas Vagas Abertas`,
+                            `Início Imediato`,
+                            `Preço Reduzido Hoje`,
+                            `Inscreva-se com Oferta`,
+                            `Facilidade no Pagamento`,
+                            `Garanta Seu Desconto`,
+                            `Estude sem Burocracia`,
+                            `Valor Promocional`,
+                            `Economize na Sua Pós`
+                        ];
+
+                        rawLongHeadlines = [
+                            fitSentence([
+                                `Garanta Sua Bolsa de Estudos em ${coreSubject}: Condições Exclusivas.`,
+                                `Garanta Sua Bolsa de Estudos em ${shortSubject}: Condições Exclusivas.`,
+                                `Bolsa de Estudos em ${ultraShortSubject}: Condições Exclusivas no EAD.`,
+                                `Garanta Sua Bolsa de Estudos na Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Aproveite o Desconto Especial para ${coreSubject} na UniCesumar.`,
+                                `Aproveite o Desconto Especial para ${shortSubject} na UniCesumar.`,
+                                `Desconto Especial para Pós em ${ultraShortSubject}: Inscreva-se Já.`,
+                                `Aproveite o Desconto Especial na Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Pós em ${coreSubject} com Mensalidades Acessíveis e Início Imediato.`,
+                                `Pós em ${shortSubject} com Mensalidades Acessíveis e Início Imediato.`,
+                                `Pós em ${ultraShortSubject}: Mensalidades Acessíveis e Início Imediato.`,
+                                `Pós em ${ultraShortSubject} com Mensalidades que Cabem no Bolso.`
+                            ], 90),
+
+                            fitSentence([
+                                `Não Perca a Oportunidade: Inscreva-se em ${coreSubject} com Oferta.`,
+                                `Não Perca a Oportunidade: Inscreva-se em ${shortSubject} com Oferta.`,
+                                `Inscreva-se em ${ultraShortSubject} com Valor Promocional Exclusivo.`,
+                                `Inscreva-se na Pós em ${ultraShortSubject} com Oferta Especial.`
+                            ], 90),
+
+                            fitSentence([
+                                `Invista no Seu Futuro em ${coreSubject} Pagando Menos no EAD.`,
+                                `Invista no Seu Futuro em ${shortSubject} Pagando Menos no EAD.`,
+                                `Invista no Seu Futuro: Pós em ${ultraShortSubject} Pagando Menos.`,
+                                `Invista no Seu Futuro em ${ultraShortSubject} com Desconto.`
+                            ], 90)
+                        ];
+
+                        rawDescriptions = [
+                            fitSentence([
+                                `Condições promocionais por tempo limitado para ${coreSubject}. Inscreva-se já.`,
+                                `Condições promocionais por tempo limitado para ${shortSubject}. Inscreva-se.`,
+                                `Condições promocionais por tempo limitado para ${ultraShortSubject}. Confira.`
+                            ], 90),
+
+                            fitSentence([
+                                `Garanta sua vaga em ${coreSubject} com descontos especiais no EAD.`,
+                                `Garanta sua vaga em ${shortSubject} com descontos especiais no EAD.`,
+                                `Garanta sua vaga na Pós em ${ultraShortSubject} com descontos especiais.`
+                            ], 90),
+
+                            fitSentence([
+                                `Início imediato sem burocracia. Aproveite a oferta comercial exclusiva UniCesumar.`,
+                                `Início imediato sem burocracia. Aproveite a oferta exclusiva da UniCesumar.`
+                            ], 90),
+
+                            fitSentence([
+                                `Pós-graduação de excelência com investimento reduzido. Clique e confira as ofertas.`,
+                                `Pós-graduação de excelência com investimento reduzido. Confira os descontos.`
+                            ], 90),
+
+                            fitSentence([
+                                `Sua chance de estudar ${coreSubject} pagando menos. Garanta sua bolsa.`,
+                                `Sua chance de estudar ${shortSubject} pagando menos. Garanta sua bolsa.`,
+                                `Sua chance de cursar Pós em ${ultraShortSubject} pagando menos. Garanta bolsa.`
+                            ], 90)
+                        ];
+                    } else if (angleIndex === 2) {
+                        rawHeadlines = [
+                            specificHeadlines[0],
+                            specificHeadlines[1],
+                            specificHeadlines[2],
+                            `Líderes Educacionais`,
+                            `Acelere Sua Promoção`,
+                            `88% Alunos Empregados`,
+                            `Aumente Seu Salário`,
+                            `Conquiste Novos Cargos`,
+                            `Gestão e Supervisão`,
+                            `Coordenação Pedagógica`,
+                            `Seja Reconhecido`,
+                            `Formação de Alto Nível`,
+                            `Metodologias Ativas`,
+                            `Diferencial no Currículo`,
+                            `Invista na Sua Carreira`
+                        ];
+
+                        rawLongHeadlines = [
+                            fitSentence([
+                                `Torne-se um Especialista Requisitado em ${coreSubject} e Lidere Equipes.`,
+                                `Torne-se um Especialista Requisitado em ${shortSubject} e Lidere Equipes.`,
+                                `Seja um Especialista Requisitado em ${ultraShortSubject}: Lidere Equipes.`,
+                                `Especialize-se em ${ultraShortSubject} e Lidere Equipes de Sucesso.`
+                            ], 90),
+
+                            fitSentence([
+                                `Pós em ${coreSubject}: 88% dos Nossos Alunos Estão Colocados no Mercado.`,
+                                `Pós em ${shortSubject}: 88% dos Nossos Alunos Estão Colocados no Mercado.`,
+                                `Pós em ${ultraShortSubject}: 88% dos Alunos Colocados no Mercado de Trabalho.`,
+                                `88% dos Alunos da Pós em ${ultraShortSubject} Estão Empregados.`
+                            ], 90),
+
+                            fitSentence([
+                                `Desenvolva Competências de Liderança e Supervisão em ${coreSubject}.`,
+                                `Desenvolva Competências de Liderança e Supervisão em ${shortSubject}.`,
+                                `Aprenda Liderança e Supervisão na Pós em ${ultraShortSubject}.`,
+                                `Domine Liderança e Gestão na Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Alcance o Topo da Sua Carreira com Formação de Alto Nível em ${coreSubject}.`,
+                                `Alcance o Topo da Sua Carreira com Formação de Alto Nível em ${shortSubject}.`,
+                                `Alcance o Topo da Carreira com a Pós em ${ultraShortSubject}.`,
+                                `Acelere Sua Carreira Profissional com Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Evolua Profissionalmente: Pós em ${coreSubject} com Foco em Resultados.`,
+                                `Evolua Profissionalmente: Pós em ${shortSubject} com Foco em Resultados.`,
+                                `Evolua Profissionalmente: Pós em ${ultraShortSubject} Focada em Resultados.`,
+                                `Evolua na Carreira: Pós em ${ultraShortSubject} com Foco Prático.`
+                            ], 90)
+                        ];
+
+                        rawDescriptions = [
+                            fitSentence([
+                                `Prepare-se para liderar e transformar instituições de ensino com alta performance.`,
+                                `Prepare-se para liderar e transformar instituições de ensino no mercado.`
+                            ], 90),
+
+                            fitSentence([
+                                `Pós-graduação focada em empregabilidade com 88% de alunos inseridos no mercado.`,
+                                `Formação focada em empregabilidade com 88% de alunos inseridos no mercado.`
+                            ], 90),
+
+                            fitSentence([
+                                `Atualize seu currículo com gestão pedagógica e supervisão na UniCesumar.`,
+                                `Atualize seu currículo com liderança pedagógica na UniCesumar.`
+                            ], 90),
+
+                            fitSentence([
+                                `Domine as práticas mais recentes de ${coreSubject} e destaque-se.`,
+                                `Domine as práticas mais recentes de ${shortSubject} e destaque-se.`,
+                                `Domine práticas de ${ultraShortSubject} e destaque-se no mercado.`
+                            ], 90),
+
+                            fitSentence([
+                                `Desenvolva sua carreira com quem entende do mercado. Inscreva-se hoje mesmo.`,
+                                `Desenvolva sua carreira profissional na UniCesumar. Inscreva-se hoje.`
+                            ], 90)
+                        ];
+                    } else {
+                        rawHeadlines = [
+                            specificHeadlines[0],
+                            specificHeadlines[1],
+                            specificHeadlines[2],
+                            `Estude no Seu Ritmo`,
+                            `Aulas no Celular e PC`,
+                            `Aprenda Onde Quiser`,
+                            `Sem Horários Fixos`,
+                            `Concilie Estudo e Trabalho`,
+                            `Plataforma 100% Online`,
+                            `Conteúdo 24h Disponível`,
+                            `Metodologia Interativa`,
+                            `Organize Seus Horários`,
+                            `Autonomia nos Estudos`,
+                            `Laboratórios Virtuais`,
+                            `Faça Seu Próprio Tempo`
+                        ];
+
+                        rawLongHeadlines = [
+                            fitSentence([
+                                `Estude ${coreSubject} Onde e Quando Quiser na Plataforma UniCesumar.`,
+                                `Estude ${shortSubject} Onde e Quando Quiser na Plataforma UniCesumar.`,
+                                `Estude ${ultraShortSubject} Onde e Quando Quiser no EAD UniCesumar.`,
+                                `Estude ${ultraShortSubject} Online no Seu Ritmo na UniCesumar.`
+                            ], 90),
+
+                            fitSentence([
+                                `Total Autonomia para Conciliar Sua Rotina com a Pós em ${coreSubject}.`,
+                                `Total Autonomia para Conciliar Sua Rotina com a Pós em ${shortSubject}.`,
+                                `Autonomia Total para Conciliar Sua Rotina com a Pós em ${ultraShortSubject}.`,
+                                `Concilie Sua Rotina de Trabalho com a Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Acesse Suas Aulas de ${coreSubject} pelo Celular ou PC 24 Horas por Dia.`,
+                                `Acesse Suas Aulas de ${shortSubject} pelo Celular ou PC 24 Horas por Dia.`,
+                                `Acesse Suas Aulas de ${ultraShortSubject} pelo Celular ou PC 24h por Dia.`,
+                                `Assista às Aulas de ${ultraShortSubject} no Celular ou PC 24h por Dia.`
+                            ], 90),
+
+                            fitSentence([
+                                `Aprenda sem Burocracia e no Seu Próprio Ritmo na Pós em ${coreSubject}.`,
+                                `Aprenda sem Burocracia e no Seu Próprio Ritmo na Pós em ${shortSubject}.`,
+                                `Aprenda sem Burocracia e no Seu Ritmo na Pós em ${ultraShortSubject}.`,
+                                `Estude no Seu Próprio Ritmo na Pós em ${ultraShortSubject}.`
+                            ], 90),
+
+                            fitSentence([
+                                `Pós em ${coreSubject}: A Praticidade do EAD com Nota Máxima no MEC.`,
+                                `Pós em ${shortSubject}: A Praticidade do EAD com Nota Máxima no MEC.`,
+                                `Pós em ${ultraShortSubject}: A Praticidade do EAD com Nota Máxima MEC.`,
+                                `Pós em ${ultraShortSubject}: Praticidade EAD e Nota Máxima MEC.`
+                            ], 90)
+                        ];
+
+                        rawDescriptions = [
+                            fitSentence([
+                                `Sua rotina é corrida? Estude ${coreSubject} no seu ritmo com plataforma 24h.`,
+                                `Sua rotina é corrida? Estude ${shortSubject} no seu ritmo com plataforma 24h.`,
+                                `Sua rotina é corrida? Estude ${ultraShortSubject} no seu ritmo com aulas 24h.`
+                            ], 90),
+
+                            fitSentence([
+                                `Acesse todo o material didático e videoaulas do seu celular sem complicações.`,
+                                `Acesse material didático e videoaulas do seu computador ou celular.`
+                            ], 90),
+
+                            fitSentence([
+                                `Liberdade total para organizar seus horários de estudo sem afetar o trabalho.`,
+                                `Liberdade total para organizar seus estudos sem afetar a rotina de trabalho.`
+                            ], 90),
+
+                            fitSentence([
+                                `Metodologia moderna desenvolvida para quem busca praticidade e eficiência.`,
+                                `Metodologia moderna desenvolvida para quem busca praticidade no aprendizado.`
+                            ], 90),
+
+                            fitSentence([
+                                `Aprenda onde quiser com o suporte de tutores preparados para tirar dúvidas.`,
+                                `Aprenda onde e quando quiser com o suporte de tutores qualificados.`
+                            ], 90)
+                        ];
+                    }
+
+                    const headlineFallbacks = [
+                        "Tradição em Ensino EAD", "Cursos com Foco no Mercado", "Formação de Alta Qualidade",
+                        "Estude no Seu Próprio Ritmo", "Invista no Seu Futuro", "Qualificação Profissional"
+                    ];
+
+                    const headlines = this.ensureUniqueArray(rawHeadlines, headlineFallbacks, 30);
+                    const longHeadlines = this.ensureUniqueArray(rawLongHeadlines, [], 90);
+                    const descriptions = this.ensureUniqueArray(rawDescriptions, [], 90);
+
+                    const sitelinks = [
+                        { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado real" },
+                        { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
+                        { title: "Bolsas e Descontos", desc1: "Condições facilitadas", desc2: "Mensalidades que cabem no bolso" },
+                        { title: "Polos no Brasil", desc1: "Mais de 1.000 unidades", desc2: "Encontre o polo mais próximo" },
+                        { title: "Nota Máxima MEC", desc1: "Ensino de excelência", desc2: "Qualidade comprovada no EAD" },
+                        { title: "Sobre a UniCesumar", desc1: "Tradição e inovação", desc2: "Uma das maiores do Brasil" }
+                    ];
+
+                    return { name, headlines, longHeadlines, descriptions, sitelinks };
+                } else {
+                    let primaryTexts = [];
+                    let rawMetaHeadlines = [];
+                    let rawMetaDesc = [];
+
+                    if (angleIndex === 0) {
+                        primaryTexts = [
+                            `A gestão e a supervisão pedagógica são fundamentais para transformar o ambiente escolar! 🎓\n\nCom a Pós-graduação em ${coreSubject} da UniCesumar, você domina práticas modernas de coordenação, orientação educacional e liderança para conduzir equipes de ensino com excelência.\n\nBenefícios do formato EAD:\n✅ Material didático exclusivo e avaliações agendadas 💻\n✅ Estude no seu próprio ritmo com flexibilidade total ⏰\n✅ Nota máxima no MEC e 88% dos alunos empregados ⭐\n\n👉 Dê um passo estratégico na sua trajetória e garanta sua vaga! 🎯`,
+                            `Transforme instituições de ensino e lidere equipes pedagógicas de sucesso! 🏆\n\nFaça sua Pós-graduação em ${coreSubject} na UniCesumar. Conte com corpo docente qualificado e diploma com a mesma validade do presencial.\n\nClique no botão abaixo e inicie hoje mesmo! ✨`,
+                            `Sua rotina intensa de trabalho exige flexibilidade nos estudos! 🌟\n\nEstude ${coreSubject} no EAD UniCesumar com plataforma interativa e suporte pedagógico contínuo.\n\nGaranta sua inscrição! 🎓`,
+                            `Especialize-se com quem é Nota Máxima no MEC! 📚\n\nO curso de ${coreSubject} foi desenhado para preparar você para os desafios do mercado real. Não perca tempo! 🚀`,
+                            `Sua carreira na educação pode ir muito mais longe! 🎯\n\nConheça a Pós-graduação em ${coreSubject} e estude com a flexibilidade do ensino online aliado à tradição da UniCesumar. 💡`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🎓`,
+                            `${specificHeadlines[1]} ⭐`,
+                            `${specificHeadlines[2]} 💻`,
+                            `Nota Máxima MEC | 88% Empregados 📈`,
+                            `Material Exclusivo e Avaliações Agendadas 💻`
+                        ];
+                        rawMetaDesc = [
+                            "Estude no seu próprio ritmo com suporte completo 📱",
+                            "Aprenda supervisão, orientação e liderança escolar 👨‍🏫",
+                            "88% dos nossos alunos estão colocados no mercado 📈",
+                            "Metodologia moderna focada no seu aprendizado 💡",
+                            "Qualidade de ensino garantida na UniCesumar 🎓"
+                        ];
+                    } else if (angleIndex === 1) {
+                        primaryTexts = [
+                            `🔥 OPORTUNIDADE EXCLUSIVA DE MATRÍCULA! 🎓\n\nGaranta sua vaga na Pós-graduação em ${coreSubject} com condições especiais e descontos imperdíveis!\n\n` + (promo ? `Aproveite: ${promo} 🏷️\n\n` : '') + `👉 Clique no botão abaixo para garantir seu desconto antes que as vagas encerrem! ⏳`,
+                            `Sua Pós-graduação com valor que cabe no seu bolso! 💰\n\nNa UniCesumar você estuda ${coreSubject} com mensalidades acessíveis e condições de pagamento facilitadas.\n\nGaranta sua bolsa de estudos agora mesmo! 🎯`,
+                            `Não adie mais o seu futuro por questões financeiras! ⚡\n\nInscreva-se hoje no curso de ${coreSubject} e aproveite nossas condições comerciais exclusivas para novas turmas.\n\nClique em "Obter oferta" e confira! 🎁`,
+                            `Investimento baixo com retorno garantido para sua carreira! 📈\n\nEspecialize-se em ${coreSubject} pagando menos na maior instituição de ensino EAD do Brasil. 🌟`,
+                            `Últimos dias para garantir sua condição comercial diferenciada em ${coreSubject}! ⏳\n\nClique e inscreva-se sem burocracia. 🏷️`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🎓`,
+                            `${specificHeadlines[1]} 💰`,
+                            promo ? `${promo} 🏷️` : `Garanta Sua Bolsa em ${shortSubject} 🎓`,
+                            `Condições Especiais de Matrícula ⚡`,
+                            `Inscreva-se com Oferta Exclusiva 🎁`
+                        ];
+                        rawMetaDesc = [
+                            "Aproveite as condições especiais e garanta sua vaga 🎯",
+                            "Início imediato sem taxa de matrícula 🚀",
+                            "Mensalidades com desconto por tempo limitado ⏳",
+                            "Sua bolsa de estudos garantida hoje mesmo 💡",
+                            "Clique para conferir os valores promocionais 🏷️"
+                        ];
+                    } else if (angleIndex === 2) {
+                        primaryTexts = [
+                            `O mercado educacional exige gestores e supervisores capacitados em ${coreSubject}! 💼\n\n88% dos alunos UniCesumar estão colocados no mercado. Desenvolva competências práticas em gestão e coordenação para impulsionar sua carreira.\n\n👉 Inscreva-se e conquiste novos cargos! 🚀`,
+                            `Quer assumir cargos de liderança ou supervisão escolar? 📈\n\nA Pós em ${coreSubject} é o passo estratégico que faltava no seu currículo. Aprenda com quem vive a prática educacional.\n\nClique e saiba mais! 🎯`,
+                            `Estude ${coreSubject} sem abrir mão da sua rotina de trabalho! 📱💻\n\nNossa plataforma online permite que você assista às aulas onde e quando puder. Liberdade total para seus estudos.\n\nGaranta sua vaga! 🎓`,
+                            `Desenvolva competências de liderança pedagógica em ${coreSubject}! 🏆\n\nAcelere sua carreira profissional hoje com apoio dos melhores professores. 💡`,
+                            `Flexibilidade total, diploma de peso e foco na sua empregabilidade! 🌟\n\nInscreva-se no curso de ${coreSubject} e alcance o topo do mercado. 🎯`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🚀`,
+                            `${specificHeadlines[1]} 📈`,
+                            `88% Alunos Empregados | UniCesumar 📈`,
+                            `Seja Especialista em ${shortSubject} 🎓`,
+                            `Evolução Profissional Garantida 🏆`
+                        ];
+                        rawMetaDesc = [
+                            "Formação alinhada às exigências do mercado educacional 💼",
+                            "Evolua seu currículo e conquiste novos cargos 🎯",
+                            "Acesse pelo celular ou computador 24h por dia 📱",
+                            "Praticidade e flexibilidade para a sua rotina ⏳",
+                            "Qualifique-se com quem é referência nacional ⭐"
+                        ];
+                    } else {
+                        primaryTexts = [
+                            `Sua rotina é corrida? Estude ${coreSubject} no seu próprio ritmo! 📱💻\n\nCom a plataforma intuitiva da UniCesumar, você organiza seus estudos do seu jeito, sem abrir mão da excelência acadêmica com Nota Máxima no MEC ⭐\n\n👉 Garanta sua vaga! 🎓`,
+                            `Assista às aulas de onde estiver e quando quiser! 🌍\n\nA Pós-graduação em ${coreSubject} oferece videoaulas, materiais interativos e suporte de tutores preparados para tirar suas dúvidas.\n\nClique e inscreva-se! ✨`,
+                            `Liberdade total para estudar sem comprometer seu trabalho! ⏰\n\nOrganize sua agenda e conclua seu curso de ${coreSubject} a partir de 8 meses na maior instituição EAD do país.\n\nSaiba mais! 🚀`,
+                            `Plataforma digital moderna e conteúdo 24h disponível! 💻\n\nEspecialize-se em ${coreSubject} com a praticidade que você precisa e a qualidade que o mercado exige. 🌟`,
+                            `Aprenda sem burocracia e no seu próprio ritmo! 🎓\n\nConheça a grade curricular de ${coreSubject} e garanta sua vaga na UniCesumar. 💡`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 💻`,
+                            `${specificHeadlines[1]} 📱`,
+                            `${specificHeadlines[2]} ⏰`,
+                            `Aprenda Onde e Quando Quiser 🌍`,
+                            `Suporte Contínuo no Seu EAD 🎓`
+                        ];
+                        rawMetaDesc = [
+                            "Acesse pelo celular ou computador 24h por dia 📱",
+                            "Praticidade e flexibilidade para sua rotina ⏰",
+                            "Conclusão rápida a partir de 8 meses 🚀",
+                            "Suporte completo de tutores em todas as etapas 💡",
+                            "Metodologia inovadora para o ensino EAD 🌟"
+                        ];
+                    }
+
+                    const headlineFallbacks = [
+                        "Tradição em Ensino EAD", "Cursos com Foco no Mercado", "Formação de Alta Qualidade",
+                        "Estude no Seu Próprio Ritmo", "Invista no Seu Futuro", "Qualificação Profissional"
+                    ];
+
+                    const headlines = this.ensureUniqueArray(rawMetaHeadlines, headlineFallbacks, 30);
+                    const longHeadlines = this.ensureUniqueArray(rawLongHeadlines, [], 90);
+                    const descriptions = this.ensureUniqueArray(rawDescriptions, [], 90);
+
+                    const sitelinks = [
+                        { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado real" },
+                        { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
+                        { title: "Bolsas e Descontos", desc1: "Condições facilitadas", desc2: "Mensalidades que cabem no bolso" },
+                        { title: "Polos no Brasil", desc1: "Mais de 1.000 unidades", desc2: "Encontre o polo mais próximo" },
+                        { title: "Nota Máxima MEC", desc1: "Ensino de excelência", desc2: "Qualidade comprovada no EAD" },
+                        { title: "Sobre a UniCesumar", desc1: "Tradição e inovação", desc2: "Uma das maiores do Brasil" }
+                    ];
+
+                    return { name, headlines, longHeadlines, descriptions, sitelinks };
+                } else {
+                    let primaryTexts = [];
+                    let rawMetaHeadlines = [];
+                    let rawMetaDesc = [];
+
+                    if (angleIndex === 0) {
+                        primaryTexts = [
+                            `A gestão e a supervisão pedagógica são fundamentais para transformar o ambiente escolar! 🎓\n\nCom a Pós-graduação em ${coreSubject} da UniCesumar, você domina práticas modernas de coordenação, orientação educacional e liderança para conduzir equipes de ensino com excelência.\n\nBenefícios do formato EAD:\n✅ Material didático exclusivo e avaliações agendadas 💻\n✅ Estude no seu próprio ritmo com flexibilidade total ⏰\n✅ Nota máxima no MEC e 88% dos alunos empregados ⭐\n\n👉 Dê um passo estratégico na sua trajetória e garanta sua vaga! 🎯`,
+                            `Transforme instituições de ensino e lidere equipes pedagógicas de sucesso! 🏆\n\nFaça sua Pós-graduação em ${coreSubject} na UniCesumar. Conte com corpo docente qualificado e diploma com a mesma validade do presencial.\n\nClique no botão abaixo e inicie hoje mesmo! ✨`,
+                            `Sua rotina intensa de trabalho exige flexibilidade nos estudos! 🌟\n\nEstude ${coreSubject} no EAD UniCesumar com plataforma interativa e suporte pedagógico contínuo.\n\nGaranta sua inscrição! 🎓`,
+                            `Especialize-se com quem é Nota Máxima no MEC! 📚\n\nO curso de ${coreSubject} foi desenhado para preparar você para os desafios do mercado real. Não perca tempo! 🚀`,
+                            `Sua carreira na educação pode ir muito mais longe! 🎯\n\nConheça a Pós-graduação em ${coreSubject} e estude com a flexibilidade do ensino online aliado à tradição da UniCesumar. 💡`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🎓`,
+                            `${specificHeadlines[1]} ⭐`,
+                            `${specificHeadlines[2]} 💻`,
+                            `Nota Máxima MEC | 88% Empregados 📈`,
+                            `Material Exclusivo e Avaliações Agendadas 💻`
+                        ];
+                        rawMetaDesc = [
+                            "Estude no seu próprio ritmo com suporte completo 📱",
+                            "Aprenda supervisão, orientação e liderança escolar 👨‍🏫",
+                            "88% dos nossos alunos estão colocados no mercado 📈",
+                            "Metodologia moderna focada no seu aprendizado 💡",
+                            "Qualidade de ensino garantida na UniCesumar 🎓"
+                        ];
+                    } else if (angleIndex === 1) {
+                        primaryTexts = [
+                            `🔥 OPORTUNIDADE EXCLUSIVA DE MATRÍCULA! 🎓\n\nGaranta sua vaga na Pós-graduação em ${coreSubject} com condições especiais e descontos imperdíveis!\n\n` + (promo ? `Aproveite: ${promo} 🏷️\n\n` : '') + `👉 Clique no botão abaixo para garantir seu desconto antes que as vagas encerrem! ⏳`,
+                            `Sua Pós-graduação com valor que cabe no seu bolso! 💰\n\nNa UniCesumar você estuda ${coreSubject} com mensalidades acessíveis e condições de pagamento facilitadas.\n\nGaranta sua bolsa de estudos agora mesmo! 🎯`,
+                            `Não adie mais o seu futuro por questões financeiras! ⚡\n\nInscreva-se hoje no curso de ${coreSubject} e aproveite nossas condições comerciais exclusivas para novas turmas.\n\nClique em "Obter oferta" e confira! 🎁`,
+                            `Investimento baixo com retorno garantido para sua carreira! 📈\n\nEspecialize-se em ${coreSubject} pagando menos na maior instituição de ensino EAD do Brasil. 🌟`,
+                            `Últimos dias para garantir sua condição comercial diferenciada em ${coreSubject}! ⏳\n\nClique e inscreva-se sem burocracia. 🏷️`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🎓`,
+                            `${specificHeadlines[1]} 💰`,
+                            promo ? `${promo} 🏷️` : `Garanta Sua Bolsa em ${shortSubject} 🎓`,
+                            `Condições Especiais de Matrícula ⚡`,
+                            `Inscreva-se com Oferta Exclusiva 🎁`
+                        ];
+                        rawMetaDesc = [
+                            "Aproveite as condições especiais e garanta sua vaga 🎯",
+                            "Início imediato sem taxa de matrícula 🚀",
+                            "Mensalidades com desconto por tempo limitado ⏳",
+                            "Sua bolsa de estudos garantida hoje mesmo 💡",
+                            "Clique para conferir os valores promocionais 🏷️"
+                        ];
+                    } else if (angleIndex === 2) {
+                        primaryTexts = [
+                            `O mercado educacional exige gestores e supervisores capacitados em ${coreSubject}! 💼\n\n88% dos alunos UniCesumar estão colocados no mercado. Desenvolva competências práticas em gestão e coordenação para impulsionar sua carreira.\n\n👉 Inscreva-se e conquiste novos cargos! 🚀`,
+                            `Quer assumir cargos de liderança ou supervisão escolar? 📈\n\nA Pós em ${coreSubject} é o passo estratégico que faltava no seu currículo. Aprenda com quem vive a prática educacional.\n\nClique e saiba mais! 🎯`,
+                            `Estude ${coreSubject} sem abrir mão da sua rotina de trabalho! 📱💻\n\nNossa plataforma online permite que você assista às aulas onde e quando puder. Liberdade total para seus estudos.\n\nGaranta sua vaga! 🎓`,
+                            `Desenvolva competências de liderança pedagógica em ${coreSubject}! 🏆\n\nAcelere sua carreira profissional hoje com apoio dos melhores professores. 💡`,
+                            `Flexibilidade total, diploma de peso e foco na sua empregabilidade! 🌟\n\nInscreva-se no curso de ${coreSubject} e alcance o topo do mercado. 🎯`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 🚀`,
+                            `${specificHeadlines[1]} 📈`,
+                            `88% Alunos Empregados | UniCesumar 📈`,
+                            `Seja Especialista em ${shortSubject} 🎓`,
+                            `Evolução Profissional Garantida 🏆`
+                        ];
+                        rawMetaDesc = [
+                            "Formação alinhada às exigências do mercado educacional 💼",
+                            "Evolua seu currículo e conquiste novos cargos 🎯",
+                            "Acesse pelo celular ou computador 24h por dia 📱",
+                            "Praticidade e flexibilidade para a sua rotina ⏳",
+                            "Qualifique-se com quem é referência nacional ⭐"
+                        ];
+                    } else {
+                        primaryTexts = [
+                            `Sua rotina é corrida? Estude ${coreSubject} no seu próprio ritmo! 📱💻\n\nCom a plataforma intuitiva da UniCesumar, você organiza seus estudos do seu jeito, sem abrir mão da excelência acadêmica com Nota Máxima no MEC ⭐\n\n👉 Garanta sua vaga! 🎓`,
+                            `Assista às aulas de onde estiver e quando quiser! 🌍\n\nA Pós-graduação em ${coreSubject} oferece videoaulas, materiais interativos e suporte de tutores preparados para tirar suas dúvidas.\n\nClique e inscreva-se! ✨`,
+                            `Liberdade total para estudar sem comprometer seu trabalho! ⏰\n\nOrganize sua agenda e conclua seu curso de ${coreSubject} a partir de 8 meses na maior instituição EAD do país.\n\nSaiba mais! 🚀`,
+                            `Plataforma digital moderna e conteúdo 24h disponível! 💻\n\nEspecialize-se em ${coreSubject} com a praticidade que você precisa e a qualidade que o mercado exige. 🌟`,
+                            `Aprenda sem burocracia e no seu próprio ritmo! 🎓\n\nConheça a grade curricular de ${coreSubject} e garanta sua vaga na UniCesumar. 💡`
+                        ];
+                        rawMetaHeadlines = [
+                            `${specificHeadlines[0]} 💻`,
+                            `${specificHeadlines[1]} 📱`,
+                            `${specificHeadlines[2]} ⏰`,
+                            `Aprenda Onde e Quando Quiser 🌍`,
+                            `Suporte Contínuo no Seu EAD 🎓`
+                        ];
+                        rawMetaDesc = [
+                            "Acesse pelo celular ou computador 24h por dia 📱",
+                            "Praticidade e flexibilidade para sua rotina ⏰",
+                            "Conclusão rápida a partir de 8 meses 🚀",
+                            "Suporte completo de tutores em todas as etapas 💡",
+                            "Metodologia inovadora para o ensino EAD 🌟"
+                        ];
+                    }
+
+                    const headlineFallbacks = [
+                        "Tradição em Ensino EAD", "Cursos com Foco no Mercado", "Formação de Alta Qualidade",
+                        "Estude no Seu Próprio Ritmo", "Invista no Seu Futuro", "Qualificação Profissional"
+                    ];
+
+                    const headlines = this.ensureUniqueArray(rawMetaHeadlines, headlineFallbacks, 30);
+                    const longHeadlines = this.ensureUniqueArray(rawLongHeadlines, [], 90);
+                    const descriptions = this.ensureUniqueArray(rawDescriptions, [], 90);
+
+                    const sitelinks = [
+                        { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado real" },
+                        { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
+                        { title: "Bolsas e Descontos", desc1: "Condições facilitadas", desc2: "Mensalidades que cabem no bolso" },
+                        { title: "Polos no Brasil", desc1: "Mais de 1.000 unidades", desc2: "Encontre o polo mais próximo" },
+                        { title: "Nota Máxima MEC", desc1: "Ensino de excelência", desc2: "Qualidade comprovada no EAD" },
+                        { title: "Sobre a UniCesumar", desc1: "Tradição e inovação", desc2: "Uma das maiores do Brasil" }
+                    ];
+
+                    return { name, headlines, longHeadlines, descriptions, sitelinks };
+                }
+            },
+
+            renderTabs() {
+                const container = document.getElementById('variation-tabs');
+                let html = '';
+                this.state.variations.forEach((v, idx) => {
+                    const active = idx === this.state.activeVariationIndex;
+                    const btnClass = active 
+                        ? 'bg-blue-600 text-white font-bold shadow-sm' 
+                        : 'bg-slate-100 text-corp-600 hover:bg-slate-200 font-medium';
+                    html += `<button onclick="app.switchVariation(${idx})" class="px-3 py-1.5 rounded-lg text-xs transition ${btnClass}">${v.name}</button>`;
+                });
+                container.innerHTML = html;
+            },
+
+            switchVariation(idx) {
+                this.state.activeVariationIndex = idx;
+                this.renderTabs();
+                this.renderEditor();
+            },
+
+            renderEditor() {
+                const container = document.getElementById('ads-editor-container');
+                const data = this.state.variations[this.state.activeVariationIndex];
+
+                if(this.state.platform === 'google') {
+                    container.innerHTML = this.getGoogleEditorHTML(data);
+                } else {
+                    container.innerHTML = this.getMetaEditorHTML(data);
+                }
+                
+                this.updatePreview();
+                this.attachValidationListeners();
+            },
+
+            getGoogleEditorHTML(data) {
+                let html = '';
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-4 border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fab fa-google text-blue-600"></i> Títulos (15 variações — Máx. 30 carac.)
+                            </h3>
+                            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                                3+ com Nome Específico do Curso
+                            </span>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-3">
+                `;
+                data.headlines.forEach((h, i) => {
+                    html += `
+                        <div class="relative flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-corp-400 w-4 text-right flex-shrink-0">${i+1}</span>
+                            <div class="relative flex-grow">
+                                <input type="text" id="g-hl-${i}" value="${h}" class="char-validate w-full pl-3 pr-20 py-2.5 bg-slate-50 border border-corp-200 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" data-limit="30">
+                                <div class="absolute right-2.5 top-2.5 flex items-center gap-1.5 text-corp-400">
+                                    <span class="text-[10px] font-mono char-counter"><span class="count">${h.length}</span>/30</span>
+                                    <button onclick="app.copyText('g-hl-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1 transition rounded" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-4 border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-align-left text-blue-600"></i> Títulos Longos (5 variações — Máx. 90 carac.)
+                            </h3>
+                            <span class="text-[11px] font-medium text-corp-400">Garantia de sentido completo</span>
+                        </div>
+                        <div class="space-y-3">
+                `;
+                data.longHeadlines.forEach((lh, i) => {
+                    html += `
+                        <div class="relative flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-corp-400 w-4 text-right flex-shrink-0">${i+1}</span>
+                            <div class="relative flex-grow">
+                                <input type="text" id="g-lh-${i}" value="${lh}" class="char-validate w-full pl-3 pr-20 py-2.5 bg-slate-50 border border-corp-200 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" data-limit="90">
+                                <div class="absolute right-2.5 top-2.5 flex items-center gap-1.5 text-corp-400">
+                                    <span class="text-[10px] font-mono char-counter"><span class="count">${lh.length}</span>/90</span>
+                                    <button onclick="app.copyText('g-lh-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1 transition rounded" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-4 border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-paragraph text-blue-600"></i> Descrições (5 variações — Máx. 90 carac.)
+                            </h3>
+                        </div>
+                        <div class="space-y-3">
+                `;
+                data.descriptions.forEach((d, i) => {
+                    html += `
+                        <div class="relative flex items-start gap-2">
+                            <span class="text-[11px] font-bold text-corp-400 w-4 text-right flex-shrink-0 pt-2.5">${i+1}</span>
+                            <div class="relative flex-grow">
+                                <textarea id="g-desc-${i}" rows="2" class="char-validate w-full pl-3 pr-20 py-2.5 bg-slate-50 border border-corp-200 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" data-limit="90">${d}</textarea>
+                                <div class="absolute right-2.5 bottom-2.5 flex items-center gap-1.5 text-corp-400">
+                                    <span class="text-[10px] font-mono char-counter"><span class="count">${d.length}</span>/90</span>
+                                    <button onclick="app.copyText('g-desc-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1 transition rounded" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-4 border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-sitemap text-blue-600"></i> Sitelinks Recomendados (6 Extensões)
+                            </h3>
+                            <span class="text-[11px] font-bold text-blue-600">Qualidade Excelente</span>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                `;
+                data.sitelinks.forEach((s, i) => {
+                    html += `
+                        <div class="p-3.5 border border-corp-200 rounded-xl bg-slate-50 space-y-2.5">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[11px] font-bold text-blue-600">Sitelink ${i+1}</span>
+                            </div>
+                            <div class="relative">
+                                <input type="text" id="g-st-title-${i}" value="${s.title}" placeholder="Texto do Sitelink (Máx. 25)" class="char-validate w-full p-2 pr-16 bg-white border border-corp-200 rounded-lg text-xs font-semibold text-corp-800" data-limit="25">
+                                <div class="absolute right-2 top-2 flex items-center gap-1 text-[10px] font-mono text-corp-400">
+                                    <span class="char-counter"><span class="count">${s.title.length}</span>/25</span>
+                                    <button onclick="app.copyText('g-st-title-${i}', this)" class="hover:text-blue-600 p-0.5"><i class="far fa-copy"></i></button>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <input type="text" id="g-st-d1-${i}" value="${s.desc1}" placeholder="Linha 1 (Máx. 35)" class="char-validate w-full p-2 pr-16 bg-white border border-corp-200 rounded-lg text-xs font-normal text-corp-700" data-limit="35">
+                                <div class="absolute right-2 top-2 flex items-center gap-1 text-[10px] font-mono text-corp-400">
+                                    <span class="char-counter"><span class="count">${s.desc1.length}</span>/35</span>
+                                    <button onclick="app.copyText('g-st-d1-${i}', this)" class="hover:text-blue-600 p-0.5"><i class="far fa-copy"></i></button>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <input type="text" id="g-st-d2-${i}" value="${s.desc2}" placeholder="Linha 2 (Máx. 35)" class="char-validate w-full p-2 pr-16 bg-white border border-corp-200 rounded-lg text-xs font-normal text-corp-700" data-limit="35">
+                                <div class="absolute right-2 top-2 flex items-center gap-1 text-[10px] font-mono text-corp-400">
+                                    <span class="char-counter"><span class="count">${s.desc2.length}</span>/35</span>
+                                    <button onclick="app.copyText('g-st-d2-${i}', this)" class="hover:text-blue-600 p-0.5"><i class="far fa-copy"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+                return html;
+            },
+
+            getMetaEditorHTML(data) {
+                let html = '';
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm space-y-4">
+                        <div class="flex justify-between items-center border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fab fa-meta text-indigo-600"></i> Textos Principais (5 Opções Múltiplas)
+                            </h3>
+                        </div>
+                `;
+                data.primaryTexts.forEach((pt, i) => {
+                    html += `
+                        <div class="p-4 bg-slate-50 border border-corp-200 rounded-xl space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-corp-700">Opção ${i+1}</span>
+                                <button onclick="app.copyText('m-pt-${i}', this)" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 transition">
+                                    <i class="far fa-copy text-xs"></i> Copiar Texto
+                                </button>
+                            </div>
+                            <textarea id="m-pt-${i}" rows="5" class="char-validate w-full p-3 bg-white border border-corp-200 rounded-lg text-xs text-corp-800 focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 outline-none leading-relaxed" data-limit="2200">${pt}</textarea>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-heading text-indigo-600"></i> Títulos do Feed (5 Opções)
+                            </h3>
+                        </div>
+                `;
+                data.headlines.forEach((h, i) => {
+                    html += `
+                        <div class="relative flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-corp-400 w-4 text-right flex-shrink-0">${i+1}</span>
+                            <div class="relative flex-grow">
+                                <input type="text" id="m-hl-${i}" value="${h}" class="char-validate w-full pl-3 pr-20 py-2.5 bg-slate-50 border border-corp-200 rounded-xl text-xs font-medium text-corp-800" data-limit="255">
+                                <div class="absolute right-2.5 top-2.5 flex items-center gap-1.5 text-corp-400">
+                                    <span class="text-[10px] font-mono char-counter"><span class="count">${h.length}</span>/255</span>
+                                    <button onclick="app.copyText('m-hl-${i}', this)" class="hover:text-indigo-600 p-1"><i class="far fa-copy text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+
+                html += `
+                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center border-b border-corp-100 pb-3">
+                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-paragraph text-indigo-600"></i> Descrições Opcionais (5 Opções)
+                            </h3>
+                        </div>
+                `;
+                data.descriptions.forEach((d, i) => {
+                    html += `
+                        <div class="relative flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-corp-400 w-4 text-right flex-shrink-0">${i+1}</span>
+                            <div class="relative flex-grow">
+                                <input type="text" id="m-desc-${i}" value="${d}" class="char-validate w-full pl-3 pr-20 py-2.5 bg-slate-50 border border-corp-200 rounded-xl text-xs font-medium text-corp-800" data-limit="255">
+                                <div class="absolute right-2.5 top-2.5 flex items-center gap-1.5 text-corp-400">
+                                    <span class="text-[10px] font-mono char-counter"><span class="count">${d.length}</span>/255</span>
+                                    <button onclick="app.copyText('m-desc-${i}', this)" class="hover:text-indigo-600 p-1"><i class="far fa-copy text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+
+                return html;
+            },
+
+            attachValidationListeners() {
+                document.querySelectorAll('.char-validate').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const el = e.target;
+                        const limit = parseInt(el.getAttribute('data-limit'));
+                        const len = el.value.length;
+                        const counter = el.parentNode.querySelector('.count');
+                        if(counter) counter.innerText = len;
+                        
+                        if(len > limit) {
+                            el.classList.add('border-rose-500', 'text-rose-600', 'bg-rose-50/50');
+                        } else {
+                            el.classList.remove('border-rose-500', 'text-rose-600', 'bg-rose-50/50');
+                        }
+                        this.updatePreviewFromInputs();
+                    });
+                });
+            },
+
+            updatePreviewFromInputs() {
+                const data = this.state.variations[this.state.activeVariationIndex];
+                if(this.state.platform === 'google') {
+                    for(let i=0; i<15; i++) {
+                        const el = document.getElementById(`g-hl-${i}`);
+                        if(el) data.headlines[i] = el.value;
+                    }
+                    for(let i=0; i<5; i++) {
+                        const el = document.getElementById(`g-desc-${i}`);
+                        if(el) data.descriptions[i] = el.value;
+                    }
+                } else {
+                    for(let i=0; i<5; i++) {
+                        const el = document.getElementById(`m-pt-${i}`);
+                        if(el) data.primaryTexts[i] = el.value;
+                        const elH = document.getElementById(`m-hl-${i}`);
+                        if(elH) data.headlines[i] = elH.value;
+                    }
+                }
+                this.updatePreview();
+            },
+
+            updatePreview() {
+                const container = document.getElementById('preview-container');
+                const data = this.state.variations[this.state.activeVariationIndex];
+                const url = this.state.url || 'https://www.unicesumar.edu.br';
+                let domain = 'unicesumar.edu.br';
+                try { domain = new URL(url.startsWith('http') ? url : 'https://'+url).hostname; } catch(e){}
+
+                if(this.state.platform === 'google') {
+                    container.innerHTML = `
+                        <div class="google-preview bg-white p-4 border border-corp-200 rounded-xl shadow-sm">
+                            <div class="google-url flex items-center gap-1.5 mb-1.5">
+                                <span class="font-bold text-[11px] bg-slate-100 text-corp-700 px-1.5 py-0.5 rounded">Patrocinado</span>
+                                <span class="text-xs text-corp-600 truncate">${domain}</span>
+                            </div>
+                            <a href="#" class="google-title block mb-1.5">${data.headlines[0] || 'Título 1'} | ${data.headlines[1] || 'Título 2'} | ${data.headlines[2] || 'Título 3'}</a>
+                            <div class="google-desc mb-3">${data.descriptions[0] || 'Descrição 1'} ${data.descriptions[1] || ''}</div>
+                            
+                            <div class="border-t border-corp-100 pt-3 grid grid-cols-2 gap-3">
+                                <div>
+                                    <div class="sitelink-title">${data.sitelinks[0].title}</div>
+                                    <div class="sitelink-desc line-clamp-1">${data.sitelinks[0].desc1}</div>
+                                </div>
+                                <div>
+                                    <div class="sitelink-title">${data.sitelinks[1].title}</div>
+                                    <div class="sitelink-desc line-clamp-1">${data.sitelinks[1].desc1}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="meta-preview bg-white border border-corp-200 rounded-xl p-4 shadow-sm">
+                            <div class="flex items-center gap-2.5 mb-3">
+                                <div class="w-9 h-9 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs">U</div>
+                                <div>
+                                    <div class="text-xs font-bold text-corp-900 leading-tight">UniCesumar</div>
+                                    <div class="text-[10px] text-corp-400">Patrocinado</div>
+                                </div>
+                            </div>
+                            <p class="text-xs mb-3 text-corp-800 leading-relaxed whitespace-pre-line">${data.primaryTexts[0] ? data.primaryTexts[0].substring(0, 160) + '...' : ''}</p>
+                            <div class="bg-slate-100 border border-corp-200 h-36 rounded-lg flex items-center justify-center text-corp-400 mb-3">
+                                <i class="fas fa-image text-3xl"></i>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 border border-corp-200 rounded-lg flex items-center justify-between">
+                                <div class="pr-2">
+                                    <div class="text-[10px] uppercase font-medium text-corp-400">${domain}</div>
+                                    <div class="text-xs font-bold text-corp-900 truncate max-w-[170px]">${data.headlines[0]}</div>
+                                </div>
+                                <span class="bg-slate-200 text-corp-800 px-3 py-1.5 rounded-md text-[11px] font-bold flex-shrink-0">${data.cta}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+
+            copyText(id, btn) {
+                const el = document.getElementById(id);
+                if (el) {
+                    const text = el.value;
+                    navigator.clipboard.writeText(text).then(() => {
+                        if (btn) {
+                            const originalHTML = btn.innerHTML;
+                            btn.innerHTML = '<i class="fas fa-check text-emerald-600"></i>';
+                            setTimeout(() => { btn.innerHTML = originalHTML; }, 1500);
+                        }
+                        this.showToast('Copiado para a área de transferência!');
+                    });
+                }
+            },
+
+            exportAds(format) {
+                const data = this.state.variations[this.state.activeVariationIndex];
+                let content = '';
+                const date = new Date().toISOString().split('T')[0];
+                const filename = `adcraft_${this.state.platform}_${this.state.courseName.replace(/[^a-z0-9]/gi, '_')}_${date}.${format}`;
+
+                if(format === 'txt') {
+                    content += `=== ADCRAFT PERFORMANCE STUDIO — ${this.state.platform.toUpperCase()} ===\n`;
+                    content += `Curso: ${this.state.courseName}\nURL: ${this.state.url}\nVariação: ${data.name}\n\n`;
+
+                    if(this.state.platform === 'google') {
+                        content += `--- 15 TÍTULOS (MAX 30 CARAC.) ---\n`;
+                        data.headlines.forEach((h, i) => content += `${i+1}. ${h}\n`);
+                        content += `\n--- 5 TÍTULOS LONGOS (MAX 90 CARAC.) ---\n`;
+                        data.longHeadlines.forEach((lh, i) => content += `${i+1}. ${lh}\n`);
+                        content += `\n--- 5 DESCRIÇÕES (MAX 90 CARAC.) ---\n`;
+                        data.descriptions.forEach((d, i) => content += `${i+1}. ${d}\n`);
+                        content += `\n--- 6 EXTENSÕES DE SITELINKS ---\n`;
+                        data.sitelinks.forEach((s, i) => {
+                            content += `Sitelink ${i+1}: ${s.title} | Linha 1: ${s.desc1} | Linha 2: ${s.desc2}\n`;
+                        });
+                    } else {
+                        content += `--- 5 TEXTOS PRINCIPAIS ---\n`;
+                        data.primaryTexts.forEach((pt, i) => content += `[OPÇÃO ${i+1}]\n${pt}\n\n`);
+                        content += `--- 5 TÍTULOS ---\n`;
+                        data.headlines.forEach((h, i) => content += `${i+1}. ${h}\n`);
+                        content += `\n--- 5 DESCRIÇÕES ---\n`;
+                        data.descriptions.forEach((d, i) => content += `${i+1}. ${d}\n`);
+                    }
+                } else if(format === 'csv') {
+                    content += "Tipo,Conteudo,Caracteres\n";
+                    if(this.state.platform === 'google') {
+                        data.headlines.forEach(h => content += `Titulo,"${h.replace(/"/g, '""')}",${h.length}\n`);
+                        data.longHeadlines.forEach(lh => content += `Titulo Longo,"${lh.replace(/"/g, '""')}",${lh.length}\n`);
+                        data.descriptions.forEach(d => content += `Descricao,"${d.replace(/"/g, '""')}",${d.length}\n`);
+                    } else {
+                        data.primaryTexts.forEach(pt => content += `Texto Principal,"${pt.replace(/"/g, '""')}",${pt.length}\n`);
+                        data.headlines.forEach(h => content += `Titulo,"${h.replace(/"/g, '""')}",${h.length}\n`);
+                    }
+                }
+
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            },
+
+            showToast(msg) {
+                const existing = document.getElementById('adcraft-toast');
+                if (existing) existing.remove();
+
+                const toast = document.createElement('div');
+                toast.id = 'adcraft-toast';
+                toast.className = 'fixed bottom-6 right-6 bg-corp-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 text-xs font-semibold flex items-center gap-2 border border-corp-700 animate-bounce';
+                toast.innerHTML = `<i class="fas fa-circle-check text-emerald-400 text-sm"></i> ${msg}`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2500);
+            }
+        };
+
+        app.updateProgressBar();
+    </script>
+</body>
+</html>
