@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-full bg-slate-50">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdCraft Performance Studio — Gestão Profissional de Anúncios</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,36 +13,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        corp: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a'
+        if (window.tailwind) {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                        colors: {
+                            corp: {
+                                50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
+                                400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155',
+                                800: '#1e293b', 900: '#0f172a'
+                            }
                         }
                     }
                 }
-            }
-        };
+            };
+        }
     </script>
+
+    <!-- CSS de Segurança e Fallback -->
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #1e293b; }
+        .hidden { display: none !important; }
+        img { max-width: 100%; height: auto; }
+        
+        .header-bg { background-color: #0f172a; color: #ffffff; padding: 12px 24px; }
+        .container-box { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; cursor: pointer; text-align: left; transition: all 0.2s ease; }
+        .card:hover { border-color: #2563eb; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .btn-primary { background-color: #2563eb; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-primary:hover { background-color: #1d4ed8; }
+        .btn-sec { background-color: #f1f5f9; color: #334155; padding: 8px 16px; border-radius: 8px; border: 1px solid #cbd5e1; cursor: pointer; }
         
         .google-preview { font-family: arial, sans-serif; }
         .google-title { color: #1a0dab; font-size: 18px; line-height: 1.3; text-decoration: none; }
@@ -50,97 +55,69 @@
         .sitelink-desc { color: #4d5156; font-size: 12px; }
     </style>
 </head>
-<body class="h-full text-corp-800 antialiased bg-slate-50 flex flex-col">
+<body class="bg-slate-50 text-corp-800 min-h-screen flex flex-col">
 
     <!-- Header Corporativo -->
-    <header class="bg-corp-900 border-b border-corp-800 text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-inner font-bold text-lg">
-                        <i class="fas fa-layer-group text-sm"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-extrabold text-lg tracking-tight text-white">AdCraft</span>
-                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">Studio Pro</span>
-                        </div>
-                        <p class="text-[11px] text-corp-400 font-medium">Geração & Copywriting de Anúncios</p>
-                    </div>
+    <header class="bg-corp-900 border-b border-corp-800 text-white sticky top-0 z-50 shadow-md header-bg">
+        <div class="max-w-7xl mx-auto flex items-center justify-between h-14">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                    <i class="fas fa-layer-group"></i>
                 </div>
-
-                <div class="flex items-center gap-3">
-                    <button onclick="resetApp()" class="text-xs font-semibold px-3 py-2 rounded-lg bg-corp-800 text-corp-300 hover:bg-corp-700 hover:text-white transition flex items-center gap-1.5 border border-corp-700">
-                        <i class="fas fa-rotate-left text-corp-400"></i> <span class="hidden sm:inline">Novo Anúncio</span>
-                    </button>
+                <div>
+                    <span class="font-extrabold text-base tracking-tight text-white">AdCraft</span>
+                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30 ml-2">Studio Pro</span>
                 </div>
             </div>
+            <button onclick="resetApp()" class="btn-sec text-xs">
+                <i class="fas fa-rotate-left"></i> Novo Anúncio
+            </button>
         </div>
     </header>
 
     <!-- Stepper Intuitivo -->
-    <div class="bg-white border-b border-corp-200 shadow-sm sticky top-16 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="flex items-center justify-between max-w-4xl mx-auto" id="progress-bar"></div>
-        </div>
+    <div class="bg-white border-b border-corp-200 shadow-sm sticky top-14 z-40 py-3">
+        <div class="max-w-4xl mx-auto px-4 flex items-center justify-between" id="progress-bar"></div>
     </div>
 
     <!-- Conteúdo Principal -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+    <main class="container-box flex-grow w-full">
         
         <!-- STEP 1: Seleção de Plataforma -->
         <section id="step-1" class="step-card">
-            <div class="text-center max-w-2xl mx-auto mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-3 inline-block">Passo 1 de 4</span>
-                <h2 class="text-3xl font-extrabold text-corp-900 tracking-tight">Qual canal de tráfego vamos estruturar?</h2>
-                <p class="text-corp-500 text-sm mt-2">Escolha a plataforma para carregar os limites estruturais oficiais de cada gerenciador.</p>
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-2 inline-block">Passo 1 de 4</span>
+                <h2 class="text-2xl font-extrabold text-corp-900">Qual canal de tráfego vamos estruturar?</h2>
+                <p class="text-corp-500 text-xs mt-1">Escolha a plataforma para carregar os limites estruturais oficiais de cada gerenciador.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <button onclick="selectPlatform('google')" class="group relative bg-white p-8 rounded-2xl border border-corp-200 shadow-sm hover:shadow-xl hover:border-blue-500 transition-all duration-300 text-left flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-transparent group-hover:bg-blue-600 transition-all"></div>
-                    <div>
-                        <div class="w-14 h-14 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" class="h-8">
-                        </div>
-                        <h3 class="text-xl font-bold text-corp-900 group-hover:text-blue-600 transition-colors flex items-center gap-2">
-                            Google Ads
-                            <i class="fas fa-arrow-right text-xs text-corp-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                        </h3>
-                        <p class="text-corp-500 text-xs leading-relaxed mt-2">Anúncios Responsivos de Pesquisa (RSA). Gera 15 Títulos, 5 Títulos Longos, 5 Descrições e 6 Sitelinks com regras de contagem estrita.</p>
+            <div class="grid-2 max-w-3xl mx-auto">
+                <div onclick="selectPlatform('google')" class="card group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" style="max-height: 28px; width: auto;">
                     </div>
-                    <div class="mt-6 pt-4 border-t border-corp-100 flex items-center justify-between text-xs text-corp-500 font-medium">
-                        <span>Rede de Pesquisa</span>
-                        <span class="text-blue-600 font-semibold group-hover:underline">Selecionar <i class="fas fa-chevron-right text-[10px] ml-1"></i></span>
-                    </div>
-                </button>
+                    <h3 class="text-lg font-bold text-corp-900 group-hover:text-blue-600 mb-2">Google Ads</h3>
+                    <p class="text-corp-500 text-xs leading-relaxed mb-4">Anúncios Responsivos de Pesquisa (RSA). Gera 15 Títulos, 5 Títulos Longos, 5 Descrições e 6 Sitelinks com regras oficiais.</p>
+                    <span class="text-xs font-semibold text-blue-600">Selecionar Rede de Pesquisa →</span>
+                </div>
 
-                <button onclick="selectPlatform('meta')" class="group relative bg-white p-8 rounded-2xl border border-corp-200 shadow-sm hover:shadow-xl hover:border-indigo-500 transition-all duration-300 text-left flex flex-col justify-between overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-transparent group-hover:bg-indigo-600 transition-all"></div>
-                    <div>
-                        <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta Ads" class="h-6">
-                        </div>
-                        <h3 class="text-xl font-bold text-corp-900 group-hover:text-indigo-600 transition-colors flex items-center gap-2">
-                            Meta Ads
-                            <i class="fas fa-arrow-right text-xs text-corp-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                        </h3>
-                        <p class="text-corp-500 text-xs leading-relaxed mt-2">Facebook & Instagram Feed/Stories. Gera 5 variações completas de Textos Principais com emojis estratégicos, Títulos e Descrições.</p>
+                <div onclick="selectPlatform('meta')" class="card group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta Ads" style="max-height: 22px; width: auto;">
                     </div>
-                    <div class="mt-6 pt-4 border-t border-corp-100 flex items-center justify-between text-xs text-corp-500 font-medium">
-                        <span>Feed & Stories</span>
-                        <span class="text-indigo-600 font-semibold group-hover:underline">Selecionar <i class="fas fa-chevron-right text-[10px] ml-1"></i></span>
-                    </div>
-                </button>
+                    <h3 class="text-lg font-bold text-corp-900 group-hover:text-indigo-600 mb-2">Meta Ads</h3>
+                    <p class="text-corp-500 text-xs leading-relaxed mb-4">Facebook & Instagram Feed/Stories. Gera 5 variações completas de Textos Principais com emojis, Títulos e Descrições.</p>
+                    <span class="text-xs font-semibold text-indigo-600">Selecionar Feed & Stories →</span>
+                </div>
             </div>
         </section>
 
         <!-- STEP 2: Análise da URL de Destino -->
-        <section id="step-2" class="step-card max-w-3xl mx-auto hidden">
-            <div class="bg-white p-8 rounded-2xl border border-corp-200 shadow-sm">
+        <section id="step-2" class="step-card hidden max-w-3xl mx-auto">
+            <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
                 <div class="mb-6">
                     <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-2 inline-block">Passo 2 de 4</span>
-                    <h2 class="text-2xl font-bold text-corp-900">Extrator de Contexto da Landing Page</h2>
+                    <h2 class="text-xl font-bold text-corp-900">Extrator de Contexto da Landing Page</h2>
                     <p class="text-corp-500 text-xs mt-1">Cole a URL da página de vendas para mapearmos os diferenciais e a apresentação do curso.</p>
                 </div>
 
@@ -148,53 +125,41 @@
                     <div>
                         <label class="block text-xs font-semibold text-corp-700 mb-1.5">URL da Página de Destino *</label>
                         <div class="flex gap-2">
-                            <div class="relative flex-grow">
-                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-corp-400">
-                                    <i class="fas fa-globe text-sm"></i>
-                                </span>
-                                <input type="url" id="target-url" placeholder="https://inscricoes.unicesumar.edu.br/curso/..." class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
-                            </div>
-                            <button onclick="analyzeUrl()" class="bg-corp-900 text-white px-6 py-3 rounded-xl font-semibold text-xs hover:bg-corp-800 transition flex items-center gap-2 shadow-sm flex-shrink-0">
+                            <input type="url" id="target-url" placeholder="https://inscricoes.unicesumar.edu.br/curso/..." class="flex-grow p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white outline-none">
+                            <button onclick="analyzeUrl()" class="btn-primary text-xs flex-shrink-0">
                                 <i class="fas fa-magnifying-glass"></i> Analisar URL
                             </button>
                         </div>
                     </div>
 
-                    <div id="url-status" class="hidden p-4 rounded-xl text-xs font-medium"></div>
+                    <div id="url-status" class="hidden p-3 rounded-xl text-xs font-medium"></div>
 
                     <div id="manual-context-area" class="hidden space-y-2">
-                        <label class="block text-xs font-semibold text-corp-700 flex justify-between items-center">
-                            <span>Parágrafos Extraídos & Mapeamento de Argumentos</span>
-                            <span class="text-[11px] font-normal text-corp-400">Editável</span>
-                        </label>
-                        <textarea id="manual-context" rows="8" class="w-full p-4 border border-corp-200 rounded-xl text-xs font-mono bg-slate-50 text-corp-700 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition leading-relaxed"></textarea>
+                        <label class="block text-xs font-semibold text-corp-700">Parágrafos Extraídos & Mapeamento de Argumentos</label>
+                        <textarea id="manual-context" rows="6" class="w-full p-3 border border-corp-200 rounded-xl text-xs font-mono bg-slate-50 text-corp-700 outline-none leading-relaxed"></textarea>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center mt-8 pt-6 border-t border-corp-100">
-                    <button onclick="goToStep(1)" class="text-xs font-semibold text-corp-500 hover:text-corp-800 transition flex items-center gap-1.5">
-                        <i class="fas fa-arrow-left"></i> Voltar
-                    </button>
-                    <button onclick="validateStep2()" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold text-xs hover:bg-blue-700 transition flex items-center gap-2 shadow-md">
-                        Avançar para Configurações <i class="fas fa-arrow-right"></i>
-                    </button>
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-corp-100">
+                    <button onclick="goToStep(1)" class="btn-sec text-xs">← Voltar</button>
+                    <button onclick="validateStep2()" class="btn-primary text-xs">Avançar para Configurações →</button>
                 </div>
             </div>
         </section>
 
         <!-- STEP 3: Configurações do Anúncio -->
-        <section id="step-3" class="step-card max-w-3xl mx-auto hidden">
-            <div class="bg-white p-8 rounded-2xl border border-corp-200 shadow-sm">
+        <section id="step-3" class="step-card hidden max-w-3xl mx-auto">
+            <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
                 <div class="mb-6">
                     <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-2 inline-block">Passo 3 de 4</span>
-                    <h2 class="text-2xl font-bold text-corp-900">Parâmetros de Copywriting</h2>
+                    <h2 class="text-xl font-bold text-corp-900">Parâmetros de Copywriting</h2>
                     <p class="text-corp-500 text-xs mt-1">Ajuste os dados do produto educacional para calibrarmos os ângulos de persuasão.</p>
                 </div>
 
-                <div class="space-y-5">
+                <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-corp-700 mb-1.5">Categoria do Produto *</label>
-                        <select id="product-category" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-semibold text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
+                        <label class="block text-xs font-bold text-corp-700 mb-1">Categoria do Produto *</label>
+                        <select id="product-category" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-semibold text-corp-800 outline-none">
                             <option value="">Selecione a modalidade...</option>
                             <option value="graduacao">Graduação (EAD / Híbrido / Presencial)</option>
                             <option value="posgraduacao">Pós-Graduação & MBAs</option>
@@ -204,18 +169,18 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-corp-700 mb-1.5">Nome Oficial do Curso / Oferta *</label>
-                        <input type="text" id="course-name" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-semibold text-blue-600 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" placeholder="Ex: Administração Escolar, Supervisão e Orientação">
+                        <label class="block text-xs font-bold text-corp-700 mb-1">Nome Oficial do Curso / Oferta *</label>
+                        <input type="text" id="course-name" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-semibold text-blue-600 outline-none" placeholder="Ex: Administração Escolar, Supervisão e Orientação">
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-corp-700 mb-1.5">Condição Comercial (Opcional)</label>
-                            <input type="text" id="promo-offer" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition" placeholder="Ex: Bolsa de 50% ou Mensalidades Reduzidas">
+                            <label class="block text-xs font-bold text-corp-700 mb-1">Condição Comercial (Opcional)</label>
+                            <input type="text" id="promo-offer" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 outline-none" placeholder="Ex: Bolsa de 50% ou Mensalidades Reduzidas">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-corp-700 mb-1.5">Direcionamento de Copy</label>
-                            <select id="ad-tone" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
+                            <label class="block text-xs font-bold text-corp-700 mb-1">Direcionamento de Copy</label>
+                            <select id="ad-tone" class="w-full p-3 bg-slate-50 border border-corp-300 rounded-xl text-xs font-medium text-corp-800 outline-none">
                                 <option value="equilibrado">Equilibrado (Institucional + Benefícios MEC)</option>
                                 <option value="carreira">Empregabilidade & Ascensão Profissional</option>
                                 <option value="flexibilidade">Flexibilidade EAD & Estudo no Seu Ritmo</option>
@@ -224,129 +189,77 @@
                         </div>
                     </div>
 
-                    <div id="meta-specific-config" class="hidden p-5 bg-indigo-50/60 border border-indigo-100 rounded-xl">
-                        <h4 class="text-xs font-bold text-indigo-900 mb-3 flex items-center gap-1.5">
-                            <i class="fab fa-meta text-indigo-600"></i> Parâmetros Específicos do Meta Ads
-                        </h4>
-                        <div class="grid md:grid-cols-2 gap-4">
+                    <div id="meta-specific-config" class="hidden p-4 bg-indigo-50/60 border border-indigo-100 rounded-xl">
+                        <h4 class="text-xs font-bold text-indigo-900 mb-2">Parâmetros Meta Ads</h4>
+                        <div class="grid md:grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">Objetivo da Campanha</label>
-                                <select id="meta-objective" class="w-full p-2.5 bg-white border border-corp-200 rounded-lg text-xs font-medium text-corp-800">
-                                    <option value="conversao">Vendas / Geração de Leads (Cadastros)</option>
-                                    <option value="trafego">Tráfego para a Landing Page</option>
-                                    <option value="reconhecimento">Reconhecimento de Marca / Alcance</option>
+                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">Objetivo</label>
+                                <select id="meta-objective" class="w-full p-2 bg-white border border-corp-200 rounded-lg text-xs">
+                                    <option value="conversao">Vendas / Leads</option>
+                                    <option value="trafego">Tráfego</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">Botão de Ação (CTA)</label>
-                                <select id="meta-cta" class="w-full p-2.5 bg-white border border-corp-200 rounded-lg text-xs font-medium text-corp-800">
+                                <label class="block text-[11px] font-semibold text-corp-700 mb-1">CTA</label>
+                                <select id="meta-cta" class="w-full p-2 bg-white border border-corp-200 rounded-lg text-xs">
                                     <option value="Saiba mais">Saiba mais</option>
                                     <option value="Inscreva-se">Inscreva-se</option>
-                                    <option value="Cadastre-se">Cadastre-se</option>
-                                    <option value="Obter oferta">Obter oferta</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center mt-8 pt-6 border-t border-corp-100">
-                    <button onclick="goToStep(2)" class="text-xs font-semibold text-corp-500 hover:text-corp-800 transition flex items-center gap-1.5">
-                        <i class="fas fa-arrow-left"></i> Voltar
-                    </button>
-                    <button onclick="generateAds()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold text-xs hover:bg-blue-700 transition flex items-center gap-2 shadow-lg shadow-blue-600/20">
-                        <i class="fas fa-wand-magic-sparkles"></i> Gerar Estrutura de Anúncios
-                    </button>
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-corp-100">
+                    <button onclick="goToStep(2)" class="btn-sec text-xs">← Voltar</button>
+                    <button onclick="generateAds()" class="btn-primary text-xs">Gerar Estrutura de Anúncios ✨</button>
                 </div>
             </div>
         </section>
 
         <!-- STEP 4: Estúdio de Revisão e Variações A/B -->
         <section id="step-4" class="step-card hidden">
-            <!-- Toolbar de Variações e Ações -->
             <div class="bg-white p-4 rounded-2xl border border-corp-200 shadow-sm mb-6 flex flex-wrap justify-between items-center gap-4">
-                <div class="flex items-center gap-3">
-                    <span class="text-xs font-bold text-corp-500 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-flask text-blue-600"></i> Ângulo:
-                    </span>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-corp-500 uppercase tracking-wider">Ângulo:</span>
                     <div id="variation-tabs" class="flex gap-2"></div>
                 </div>
-
                 <div class="flex items-center gap-2">
-                    <button onclick="generateNewVariation()" class="bg-corp-900 text-white px-3.5 py-2 rounded-xl text-xs font-semibold hover:bg-corp-800 transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fas fa-plus text-[10px]"></i> Criar Variação A/B
-                    </button>
-                    <div class="h-4 w-px bg-corp-200 mx-1"></div>
-                    <button onclick="exportAds('txt')" class="bg-slate-100 hover:bg-slate-200 text-corp-700 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1">
-                        <i class="fas fa-file-alt text-corp-500"></i> TXT
-                    </button>
-                    <button onclick="exportAds('csv')" class="bg-slate-100 hover:bg-slate-200 text-corp-700 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1">
-                        <i class="fas fa-file-csv text-corp-500"></i> CSV
-                    </button>
+                    <button onclick="generateNewVariation()" class="btn-primary text-xs">+ Criar Variação A/B</button>
+                    <button onclick="exportAds('txt')" class="btn-sec text-xs">Baixar TXT</button>
+                    <button onclick="exportAds('csv')" class="btn-sec text-xs">Baixar CSV</button>
                 </div>
             </div>
 
-            <!-- Workspace: Editor + Preview Sticky -->
-            <div class="grid lg:grid-cols-12 gap-8">
-                <!-- Editor -->
+            <div class="grid lg:grid-cols-12 gap-6">
                 <div class="lg:col-span-7 xl:col-span-8 space-y-6" id="ads-editor-container"></div>
-
-                <!-- Live Preview Sticky -->
                 <div class="lg:col-span-5 xl:col-span-4">
-                    <div class="sticky top-32 space-y-4">
-                        <div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm">
-                            <div class="flex items-center justify-between border-b border-corp-100 pb-3 mb-4">
-                                <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-1.5">
-                                    <i class="fas fa-eye text-blue-600"></i> Simulação em Tempo Real
-                                </h3>
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Ao Vivo
-                                </span>
-                            </div>
-                            
-                            <div id="preview-container"></div>
-                        </div>
+                    <div class="bg-white p-4 rounded-2xl border border-corp-200 shadow-sm sticky top-20">
+                        <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider mb-3 pb-2 border-b">Simulação em Tempo Real</h3>
+                        <div id="preview-container"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8 pt-6 border-t border-corp-200 flex justify-between">
-                <button onclick="goToStep(3)" class="text-xs font-semibold text-corp-500 hover:text-corp-800 transition flex items-center gap-1">
-                    <i class="fas fa-arrow-left"></i> Modificar Parâmetros
-                </button>
+            <div class="mt-6 pt-4 border-t border-corp-200 flex justify-between">
+                <button onclick="goToStep(3)" class="btn-sec text-xs">← Modificar Parâmetros</button>
             </div>
         </section>
 
     </main>
 
     <!-- Footer Corporativo -->
-    <footer class="bg-white border-t border-corp-200 mt-auto py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-corp-400">
-            <div class="flex items-center gap-2">
-                <span class="font-bold text-corp-700">AdCraft Performance Studio</span>
-                <span>— Validação Sintática & Regras Oficiais de Tráfego</span>
-            </div>
-            <div>
-                <span>Versão 3.2 Pro</span>
-            </div>
-        </div>
+    <footer class="bg-white border-t border-corp-200 py-4 mt-auto text-center text-xs text-corp-400">
+        <p>AdCraft Performance Studio — Validação Sintática & Regras Oficiais de Tráfego v3.2 Pro</p>
     </footer>
 
-    <!-- Aplicação JavaScript Global -->
+    <!-- Aplicação JavaScript Global Completa -->
     <script>
         window.appState = {
-            step: 1,
-            platform: null,
-            url: '',
-            scrapedText: '',
-            extractedParagraphs: [],
-            category: '',
-            courseName: '',
-            promoOffer: '',
-            tone: 'equilibrado',
+            step: 1, platform: null, url: '', scrapedText: '',
+            category: '', courseName: '', promoOffer: '', tone: 'equilibrado',
             metaOptions: { objective: 'conversao', cta: 'Saiba mais' },
-            variations: [],
-            activeVariationIndex: 0
+            variations: [], activeVariationIndex: 0
         };
 
         window.goToStep = function(stepNum) {
@@ -373,30 +286,17 @@
                 const isActive = stepNum === num;
                 const isPast = stepNum > num;
                 
-                let statusClass = 'text-corp-400';
-                let circleClass = 'border-corp-300 bg-white text-corp-400';
-                
-                if (isActive) {
-                    statusClass = 'text-blue-600 font-bold';
-                    circleClass = 'border-blue-600 bg-blue-600 text-white font-bold ring-4 ring-blue-50';
-                } else if (isPast) {
-                    statusClass = 'text-corp-700 font-semibold';
-                    circleClass = 'border-emerald-500 bg-emerald-500 text-white';
-                }
+                let statusClass = isActive ? 'text-blue-600 font-bold' : (isPast ? 'text-slate-700 font-semibold' : 'text-slate-400');
+                let circleClass = isActive ? 'bg-blue-600 text-white font-bold' : (isPast ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-500');
 
-                const icon = isPast 
-                    ? '<i class="fas fa-check text-[10px]"></i>' 
-                    : `<span>${num}</span>`;
-                
                 html += `
-                    <div class="flex items-center gap-2.5 ${statusClass} transition-all">
-                        <span class="w-6 h-6 rounded-full border text-[11px] flex items-center justify-center transition-all ${circleClass}">${icon}</span>
+                    <div class="flex items-center gap-2 ${statusClass}">
+                        <span class="w-6 h-6 rounded-full text-xs flex items-center justify-center ${circleClass}">${num}</span>
                         <span class="text-xs hidden sm:inline">${name}</span>
                     </div>
                 `;
                 if(num < steps.length) {
-                    const lineBg = isPast ? 'bg-emerald-500' : 'bg-corp-200';
-                    html += `<div class="h-0.5 flex-grow mx-2 sm:mx-4 ${lineBg} transition-all"></div>`;
+                    html += `<div class="h-0.5 flex-grow mx-2 ${isPast ? 'bg-emerald-500' : 'bg-slate-200'}"></div>`;
                 }
             });
             const el = document.getElementById('progress-bar');
@@ -419,7 +319,7 @@
         window.resetApp = function() {
             if(confirm('Deseja reiniciar a criação e limpar os dados atuais?')) {
                 window.appState = {
-                    step: 1, platform: null, url: '', scrapedText: '', extractedParagraphs: [],
+                    step: 1, platform: null, url: '', scrapedText: '',
                     category: '', courseName: '', promoOffer: '', tone: 'equilibrado',
                     metaOptions: { objective: 'conversao', cta: 'Saiba mais' }, variations: [], activeVariationIndex: 0
                 };
@@ -455,7 +355,6 @@
                 let category = 'posgraduacao';
                 if (rawSlug.includes('graduacao') && !rawSlug.includes('pos')) category = 'graduacao';
                 else if (rawSlug.includes('tecnico')) category = 'tecnicos';
-                else if (rawSlug.includes('profissionalizante')) category = 'profissionalizantes';
 
                 let cleanCourse = rawSlug
                     .replace(/^(pos graduacao em|graduacao em|curso tecnico em|curso de|tecnico em|especializacao em|pos em)\s+/gi, '')
@@ -466,13 +365,13 @@
                     return w.charAt(0).toUpperCase() + w.slice(1);
                 }).join(' ');
 
-                return { category, cleanCourse, rawSlug };
+                return { category, cleanCourse };
             } catch(e) {
                 return null;
             }
         };
 
-        window.analyzeUrl = async function() {
+        window.analyzeUrl = function() {
             const urlInput = document.getElementById('target-url');
             const url = urlInput ? urlInput.value.trim() : '';
             const statusEl = document.getElementById('url-status');
@@ -483,42 +382,26 @@
             
             if(!url || !url.startsWith('http')) {
                 if (statusEl) {
-                    statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-2';
-                    statusEl.innerHTML = '<i class="fas fa-circle-exclamation text-rose-500 text-sm"></i> Digite uma URL válida iniciando por http:// ou https://';
+                    statusEl.className = 'p-3 rounded-xl text-xs mb-3 bg-rose-50 text-rose-700 border border-rose-200';
+                    statusEl.innerHTML = 'Digite uma URL válida iniciando por http:// ou https://';
                     statusEl.classList.remove('hidden');
                 }
                 return;
-            }
-
-            if (statusEl) {
-                statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-2';
-                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin text-blue-600 text-sm"></i> Mapeando estrutura e parágrafos da página...';
-                statusEl.classList.remove('hidden');
             }
 
             const slugInfo = window.extractFromUrlSlug(url);
             const detectedCourse = slugInfo ? slugInfo.cleanCourse : 'Administração Escolar, Supervisão e Orientação';
             const detectedCategory = slugInfo ? slugInfo.category : 'posgraduacao';
 
-            if (courseNameInput && detectedCourse) courseNameInput.value = detectedCourse;
-            if (categorySelect && detectedCategory) categorySelect.value = detectedCategory;
+            if (courseNameInput) courseNameInput.value = detectedCourse;
+            if (categorySelect) categorySelect.value = detectedCategory;
 
-            let paragraphs = [
-                "A gestão e a supervisão pedagógica são fundamentais para garantir a excelência no ambiente educacional. O profissional dessa área alinha diretrizes de ensino e coordena equipes escolares.",
-                "Para conciliar a rotina na escola com a sua qualificação, o formato EAD oferece flexibilidade total com material didático exclusivo e suporte pedagógico contínuo.",
-                "Nesta formação, você dominará práticas modernas de orientação educacional, legislação escolar e metodologias ativas para liderar equipes pedagógicas de sucesso.",
-                "Especialize-se com quem é referência e nota máxima no MEC!"
-            ];
-
-            let contextReport = `=== APRESENTAÇÃO COMPLETA DO CURSO (${paragraphs.length} PARÁGRAFOS) ===\n\n`;
-            paragraphs.forEach((p, idx) => {
-                contextReport += `[PARÁGRAFO ${idx + 1}]\n${p}\n\n`;
-            });
-            contextReport += `[DIFERENCIAIS INSTITUCIONAIS & MEC]\n- Conceito Máximo no MEC (Nota 5)\n- 88% de Alunos Empregados\n- Material Didático Exclusivo\n`;
+            let contextReport = `=== APRESENTAÇÃO DO CURSO ===\nFormação focada em prática profissional e liderança pedagógica.\n\n[DIFERENCIAIS]\n- Nota Máxima no MEC (Nota 5)\n- 88% de Empregabilidade\n- Plataforma EAD 24h`;
 
             if (statusEl) {
-                statusEl.className = 'p-4 rounded-xl text-xs mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-2';
-                statusEl.innerHTML = `<i class="fas fa-circle-check text-emerald-600 text-sm"></i> <div><strong>Extração concluída com sucesso!</strong></div>`;
+                statusEl.className = 'p-3 rounded-xl text-xs mb-3 bg-emerald-50 text-emerald-800 border border-emerald-200';
+                statusEl.innerHTML = 'URL Mapeada com sucesso!';
+                statusEl.classList.remove('hidden');
             }
 
             if (manualContext) manualContext.value = contextReport;
@@ -530,9 +413,7 @@
 
         window.validateStep2 = function() {
             const targetUrl = document.getElementById('target-url');
-            const manualContext = document.getElementById('manual-context');
             if (targetUrl) window.appState.url = targetUrl.value;
-            if (manualContext) window.appState.scrapedText = manualContext.value;
             window.goToStep(3);
         };
 
@@ -542,23 +423,6 @@
                 .replace(/^(Pós-graduação em|Graduação em|Curso Técnico em|Curso de|Técnico em|Pós em|Especialização em)\s+/gi, '')
                 .replace(/\s+/g, ' ')
                 .trim();
-        };
-
-        window.getAdaptiveCourseName = function(rawName, maxAllowedLen = 90) {
-            let clean = window.cleanCourseSubject(rawName);
-            if (clean.length <= maxAllowedLen) return clean;
-
-            let t1 = clean
-                .replace(/Administração/gi, 'Admin.')
-                .replace(/Desenvolvimento/gi, 'Dev.')
-                .replace(/Engenharia/gi, 'Eng.')
-                .replace(/Tecnologia/gi, 'Tecnol.')
-                .replace(/Especialização/gi, 'Espec.')
-                .replace(/Supervisão/gi, 'Sup.')
-                .replace(/Orientação/gi, 'Orient.');
-            if (t1.length <= maxAllowedLen) return t1;
-
-            return window.smartTruncate(clean, maxAllowedLen);
         };
 
         window.generateAds = function() {
@@ -573,9 +437,7 @@
             window.appState.category = category;
             window.appState.courseName = course;
             const promoEl = document.getElementById('promo-offer');
-            const toneEl = document.getElementById('ad-tone');
             window.appState.promoOffer = promoEl ? promoEl.value : '';
-            window.appState.tone = toneEl ? toneEl.value : 'equilibrado';
 
             if (window.appState.platform === 'meta') {
                 const objEl = document.getElementById('meta-objective');
@@ -595,38 +457,39 @@
 
         window.buildVariationData = function(name, seed = 1) {
             const rawCourse = window.appState.courseName;
-            const category = window.appState.category;
             const coreSubject = window.cleanCourseSubject(rawCourse);
-            const shortSubject = window.getAdaptiveCourseName(rawCourse, 28);
             const promo = window.appState.promoOffer;
 
             if (window.appState.platform === 'google') {
+                // 15 Títulos (Até 30 carac.)
                 const headlines = [
-                    `Pós em ${shortSubject}`,
-                    `Pós EAD em ${shortSubject}`,
-                    `Pós Online em ${shortSubject}`,
-                    `Espec. em ${shortSubject}`,
-                    `${shortSubject} EAD`,
+                    `Pós em ${window.smartTruncate(coreSubject, 22)}`,
+                    `Pós EAD em ${window.smartTruncate(coreSubject, 18)}`,
+                    `Pós Online em ${window.smartTruncate(coreSubject, 15)}`,
+                    `Espec. em ${window.smartTruncate(coreSubject, 19)}`,
+                    `${window.smartTruncate(coreSubject, 24)} EAD`,
                     `Nota Máxima no MEC`,
                     `88% Alunos Empregados`,
                     `Professores Doutores`,
                     `Liderança e Prática`,
                     `Diploma Reconhecido`,
                     `Gestão Pedagógica`,
-                    promo ? window.smartTruncate(promo, 30) : `Mensalidades Acessíveis`,
+                    promo ? window.smartTruncate(promo, 30) : `Mensalidades Reduzidas`,
                     `Aprenda na Prática`,
                     `Inscreva-se Hoje Mesmo`,
                     `Plataforma Intuitiva`
-                ];
+                ].map(s => window.smartTruncate(s, 30));
 
+                // 5 Títulos Longos (Até 90 carac.)
                 const longHeadlines = [
                     `Pós-Graduação em ${coreSubject} na UniCesumar: Estude 100% Online.`,
-                    `Especialização em ${shortSubject}: Liderança, Supervisão e Prática.`,
-                    `Desenvolva a Gestão Escolar e a Liderança Pedagógica em ${shortSubject}.`,
-                    `Diploma Igual ao Presencial e Reconhecido pelo Mercado em ${shortSubject}.`,
-                    `Inscreva-se em ${shortSubject} na UniCesumar e Dê um Passo Estratégico.`
+                    `Especialização em ${coreSubject}: Liderança, Supervisão e Prática.`,
+                    `Desenvolva a Gestão Escolar e a Liderança Pedagógica na UniCesumar.`,
+                    `Diploma Igual ao Presencial e Reconhecido pelo Mercado em ${coreSubject}.`,
+                    `Inscreva-se em ${coreSubject} na UniCesumar e Dê um Passo Estratégico.`
                 ].map(s => window.smartTruncate(s, 90));
 
+                // 5 Descrições (Até 90 carac.)
                 const descriptions = [
                     `Aprenda práticas modernas de liderança escolar e supervisão pedagógica para alta performance.`,
                     `Material didático exclusivo e avaliações agendadas para você estudar no seu ritmo.`,
@@ -635,6 +498,7 @@
                     `Flexibilidade total no EAD UniCesumar para conciliar estudos com a sua rotina.`
                 ].map(s => window.smartTruncate(s, 90));
 
+                // 6 Sitelinks Extensões
                 const sitelinks = [
                     { title: "Grade Curricular", desc1: "Conheça todas as disciplinas", desc2: "Conteúdo focado no mercado" },
                     { title: "Inscreva-se Agora", desc1: "Garanta sua vaga online", desc2: "Processo rápido e sem burocracia" },
@@ -646,21 +510,22 @@
 
                 return { name, headlines, longHeadlines, descriptions, sitelinks };
             } else {
+                // Meta Ads
                 const primaryTexts = [
-                    `A gestão e a supervisão pedagógica são fundamentais para transformar o ambiente escolar! 🎓\n\nCom a Pós-graduação em ${coreSubject} da UniCesumar, você domina práticas modernas de coordenação e liderança.\n\n✅ Material didático exclusivo 💻\n✅ Estude no seu próprio ritmo ⏰\n✅ Nota máxima no MEC ⭐\n\n👉 Inscreva-se! 🎯`,
-                    `Transforme instituições de ensino e lidere equipes de sucesso! 🏆\n\nFaça sua Pós em ${coreSubject} na UniCesumar. Diploma igual ao presencial. ✨`,
+                    `A gestão e a supervisão pedagógica são fundamentais para transformar o ambiente escolar! 🎓\n\nCom a Pós-graduação em ${coreSubject} da UniCesumar, você domina práticas modernas de coordenação, orientação educacional e liderança.\n\n✅ Material didático exclusivo 💻\n✅ Estude no seu próprio ritmo ⏰\n✅ Nota máxima no MEC ⭐\n\n👉 Inscreva-se e garanta sua vaga! 🎯`,
+                    `Transforme instituições de ensino e lidere equipes de sucesso! 🏆\n\nFaça sua Pós-graduação em ${coreSubject} na UniCesumar. Conte com corpo docente qualificado e diploma reconhecido pelo MEC. ✨`,
                     `Sua rotina exige flexibilidade nos estudos! 🌟\n\nEstude ${coreSubject} no EAD UniCesumar com suporte pedagógico contínuo. 🎓`,
-                    `Especialize-se com quem é Nota Máxima no MEC! 📚\n\nO curso de ${coreSubject} foi desenhado para preparar você para o mercado real. 🚀`,
-                    `Conheça a Pós-graduação em ${coreSubject} e estude com flexibilidade online. 💡`
+                    `Especialize-se com quem é Nota Máxima no MEC! 📚\n\nO curso de ${coreSubject} foi desenhado para preparar você para os desafios do mercado real. 🚀`,
+                    `Conheça a Pós-graduação em ${coreSubject} e estude com a flexibilidade do ensino online aliado à tradição. 💡`
                 ];
 
                 const headlines = [
-                    `Pós em ${shortSubject} 🎓`,
-                    `Especialização EAD ${shortSubject} ⭐`,
+                    `Pós em ${window.smartTruncate(coreSubject, 25)} 🎓`,
+                    `Especialização EAD ${window.smartTruncate(coreSubject, 20)} ⭐`,
                     `Nota Máxima MEC | 88% Empregados 📈`,
-                    `Inscreva-se em ${shortSubject} 💰`,
+                    `Inscreva-se em ${window.smartTruncate(coreSubject, 20)} 💰`,
                     `Pós Online com Desconto Exclusivo ⚡`
-                ].map(s => window.smartTruncate(s, 255));
+                ];
 
                 const descriptions = [
                     "Estude no seu próprio ritmo com suporte completo 📱",
@@ -670,7 +535,7 @@
                     "Qualidade de ensino garantida na UniCesumar 🎓"
                 ];
 
-                return { name, primaryTexts, headlines, descriptions, cta: window.appState.metaOptions.cta };
+                return { name, headlines, primaryTexts, descriptions, cta: window.appState.metaOptions.cta };
             }
         };
 
@@ -680,10 +545,7 @@
             let html = '';
             window.appState.variations.forEach((v, idx) => {
                 const active = idx === window.appState.activeVariationIndex;
-                const btnClass = active 
-                    ? 'bg-blue-600 text-white font-bold shadow-sm' 
-                    : 'bg-slate-100 text-corp-600 hover:bg-slate-200 font-medium';
-                html += `<button onclick="switchVariation(${idx})" class="px-3 py-1.5 rounded-lg text-xs transition ${btnClass}">${v.name}</button>`;
+                html += `<button onclick="switchVariation(${idx})" class="btn-sec text-xs ${active ? 'bg-blue-600 text-white font-bold' : ''}">${v.name}</button>`;
             });
             container.innerHTML = html;
         };
@@ -696,12 +558,10 @@
 
         window.generateNewVariation = function() {
             const count = window.appState.variations.length + 1;
-            const varName = `Variação ${count}`;
-            window.appState.variations.push(window.buildVariationData(varName, count));
+            window.appState.variations.push(window.buildVariationData(`Variação ${count}`, count));
             window.appState.activeVariationIndex = window.appState.variations.length - 1;
             window.renderTabs();
             window.renderEditor();
-            window.showToast(`Variação A/B adicionada!`);
         };
 
         window.renderEditor = function() {
@@ -711,48 +571,90 @@
 
             let html = '';
             if(window.appState.platform === 'google') {
+                // Títulos (15)
                 html += `
-                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm">
-                        <div class="flex justify-between items-center mb-4 border-b border-corp-100 pb-3">
-                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fab fa-google text-blue-600"></i> Títulos (15 variações — Máx. 30 carac.)
-                            </h3>
-                        </div>
+                    <div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm">
+                        <h4 class="font-bold text-xs text-corp-800 uppercase tracking-wider mb-3 pb-2 border-b flex justify-between items-center">
+                            <span><i class="fab fa-google text-blue-600 mr-1.5"></i> 15 Títulos (Máx. 30 carac.)</span>
+                            <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold border border-emerald-200">Requisito Oficial RSA</span>
+                        </h4>
                         <div class="grid sm:grid-cols-2 gap-3">
                 `;
                 data.headlines.forEach((h, i) => {
                     html += `
                         <div class="relative flex items-center gap-2">
-                            <span class="text-[11px] font-bold text-corp-400 w-4 text-right flex-shrink-0">${i+1}</span>
-                            <div class="relative flex-grow">
-                                <input type="text" id="g-hl-${i}" value="${h}" class="w-full pl-3 pr-20 py-2.5 bg-slate-50 border border-corp-200 rounded-xl text-xs font-medium text-corp-800 focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none transition">
-                                <div class="absolute right-2.5 top-2.5 flex items-center gap-1.5 text-corp-400">
-                                    <button onclick="copyText('g-hl-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1 transition rounded" title="Copiar"><i class="far fa-copy text-xs"></i></button>
-                                </div>
-                            </div>
+                            <span class="text-[10px] font-bold text-corp-400 w-4 text-right">${i+1}</span>
+                            <input type="text" id="g-hl-${i}" value="${h}" oninput="updateInputValue(this, 30)" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">
+                            <button onclick="copyText('g-hl-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1" title="Copiar"><i class="far fa-copy text-xs"></i></button>
                         </div>
                     `;
                 });
                 html += `</div></div>`;
-            } else {
+
+                // Títulos Longos (5)
                 html += `
-                    <div class="bg-white p-6 rounded-2xl border border-corp-200 shadow-sm space-y-4">
-                        <div class="flex justify-between items-center border-b border-corp-100 pb-3">
-                            <h3 class="text-xs font-bold text-corp-800 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fab fa-meta text-indigo-600"></i> Textos Principais
-                            </h3>
-                        </div>
+                    <div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm">
+                        <h4 class="font-bold text-xs text-corp-800 uppercase tracking-wider mb-3 pb-2 border-b"><i class="fas fa-align-left text-blue-600 mr-1.5"></i> 5 Títulos Longos (Máx. 90 carac.)</h4>
+                        <div class="space-y-2.5">
                 `;
+                data.longHeadlines.forEach((lh, i) => {
+                    html += `
+                        <div class="relative flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-corp-400 w-4 text-right">${i+1}</span>
+                            <input type="text" id="g-lh-${i}" value="${lh}" oninput="updateInputValue(this, 90)" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">
+                            <button onclick="copyText('g-lh-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+                // Descrições (5)
+                html += `
+                    <div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm">
+                        <h4 class="font-bold text-xs text-corp-800 uppercase tracking-wider mb-3 pb-2 border-b"><i class="fas fa-paragraph text-blue-600 mr-1.5"></i> 5 Descrições (Máx. 90 carac.)</h4>
+                        <div class="space-y-2.5">
+                `;
+                data.descriptions.forEach((d, i) => {
+                    html += `
+                        <div class="relative flex items-start gap-2">
+                            <span class="text-[10px] font-bold text-corp-400 w-4 text-right pt-2">${i+1}</span>
+                            <textarea id="g-desc-${i}" rows="2" oninput="updateInputValue(this, 90)" class="w-full p-2 bg-slate-50 border border-corp-200 rounded-lg text-xs font-medium text-corp-800 outline-none focus:bg-white">${d}</textarea>
+                            <button onclick="copyText('g-desc-${i}', this)" class="text-corp-400 hover:text-blue-600 p-1 pt-2" title="Copiar"><i class="far fa-copy text-xs"></i></button>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+                // Sitelinks (6)
+                html += `
+                    <div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm">
+                        <h4 class="font-bold text-xs text-corp-800 uppercase tracking-wider mb-3 pb-2 border-b"><i class="fas fa-sitemap text-blue-600 mr-1.5"></i> 6 Extensões de Sitelinks</h4>
+                        <div class="grid sm:grid-cols-2 gap-3">
+                `;
+                data.sitelinks.forEach((s, i) => {
+                    html += `
+                        <div class="p-3 border border-corp-200 rounded-xl bg-slate-50 space-y-2">
+                            <span class="text-[10px] font-bold text-blue-600">Sitelink ${i+1}</span>
+                            <input type="text" value="${s.title}" placeholder="Título (25c)" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs font-semibold text-corp-800">
+                            <input type="text" value="${s.desc1}" placeholder="Linha 1 (35c)" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs text-corp-700">
+                            <input type="text" value="${s.desc2}" placeholder="Linha 2 (35c)" class="w-full p-1.5 bg-white border border-corp-200 rounded text-xs text-corp-700">
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+
+            } else {
+                // Meta Ads Editor
+                html += `<div class="bg-white p-5 rounded-2xl border border-corp-200 shadow-sm space-y-4">
+                    <h4 class="font-bold text-xs text-corp-800 uppercase tracking-wider pb-2 border-b"><i class="fab fa-meta text-indigo-600 mr-1.5"></i> 5 Textos Principais (Feed & Stories)</h4>`;
                 data.primaryTexts.forEach((pt, i) => {
                     html += `
-                        <div class="p-4 bg-slate-50 border border-corp-200 rounded-xl space-y-2">
+                        <div class="p-3 bg-slate-50 border border-corp-200 rounded-xl space-y-1.5">
                             <div class="flex justify-between items-center text-xs">
                                 <span class="font-bold text-corp-700">Opção ${i+1}</span>
-                                <button onclick="copyText('m-pt-${i}', this)" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 transition">
-                                    <i class="far fa-copy text-xs"></i> Copiar Texto
-                                </button>
+                                <button onclick="copyText('m-pt-${i}', this)" class="text-indigo-600 font-semibold flex items-center gap-1"><i class="far fa-copy text-xs"></i> Copiar</button>
                             </div>
-                            <textarea id="m-pt-${i}" rows="4" class="w-full p-3 bg-white border border-corp-200 rounded-lg text-xs text-corp-800 focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 outline-none leading-relaxed">${pt}</textarea>
+                            <textarea id="m-pt-${i}" rows="4" class="w-full p-2 bg-white border border-corp-200 rounded-lg text-xs text-corp-800 leading-relaxed">${pt}</textarea>
                         </div>
                     `;
                 });
@@ -763,36 +665,53 @@
             window.updatePreview();
         };
 
+        window.updateInputValue = function(el, limit) {
+            if (el.value.length > limit) {
+                el.classList.add('border-rose-500', 'text-rose-600');
+            } else {
+                el.classList.remove('border-rose-500', 'text-rose-600');
+            }
+            window.updatePreview();
+        };
+
         window.updatePreview = function() {
             const container = document.getElementById('preview-container');
             if (!container || !window.appState.variations[window.appState.activeVariationIndex]) return;
             const data = window.appState.variations[window.appState.activeVariationIndex];
 
             if(window.appState.platform === 'google') {
+                const hl0 = document.getElementById('g-hl-0')?.value || data.headlines[0] || 'Título 1';
+                const hl1 = document.getElementById('g-hl-1')?.value || data.headlines[1] || 'Título 2';
+                const hl2 = document.getElementById('g-hl-2')?.value || data.headlines[2] || 'Título 3';
+                const desc0 = document.getElementById('g-desc-0')?.value || data.descriptions[0] || 'Descrição do Anúncio';
+
                 container.innerHTML = `
-                    <div class="google-preview bg-white p-4 border border-corp-200 rounded-xl shadow-sm">
-                        <div class="google-url flex items-center gap-1.5 mb-1.5">
-                            <span class="font-bold text-[11px] bg-slate-100 text-corp-700 px-1.5 py-0.5 rounded">Patrocinado</span>
-                            <span class="text-xs text-corp-600 truncate">unicesumar.edu.br</span>
+                    <div class="google-preview bg-white p-3 border rounded-xl text-xs shadow-sm">
+                        <div class="text-emerald-700 font-bold mb-1 text-[11px]">Patrocinado • unicesumar.edu.br</div>
+                        <a href="#" class="google-title block mb-1 font-normal">${hl0} | ${hl1} | ${hl2}</a>
+                        <div class="google-desc text-slate-600 mb-2">${desc0}</div>
+                        <div class="border-t pt-2 grid grid-cols-2 gap-2 text-[11px]">
+                            <div>
+                                <div class="sitelink-title">${data.sitelinks[0].title}</div>
+                                <div class="sitelink-desc truncate">${data.sitelinks[0].desc1}</div>
+                            </div>
+                            <div>
+                                <div class="sitelink-title">${data.sitelinks[1].title}</div>
+                                <div class="sitelink-desc truncate">${data.sitelinks[1].desc1}</div>
+                            </div>
                         </div>
-                        <a href="#" class="google-title block mb-1.5">${data.headlines[0] || 'Título 1'} | ${data.headlines[1] || 'Título 2'}</a>
-                        <div class="google-desc mb-3">${data.descriptions[0] || 'Descrição 1'}</div>
                     </div>
                 `;
             } else {
+                const pt0 = document.getElementById('m-pt-0')?.value || data.primaryTexts[0] || 'Texto do Anúncio';
                 container.innerHTML = `
-                    <div class="meta-preview bg-white border border-corp-200 rounded-xl p-4 shadow-sm">
-                        <div class="flex items-center gap-2.5 mb-3">
-                            <div class="w-9 h-9 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs">U</div>
-                            <div>
-                                <div class="text-xs font-bold text-corp-900 leading-tight">UniCesumar</div>
-                                <div class="text-[10px] text-corp-400">Patrocinado</div>
-                            </div>
+                    <div class="bg-white p-3 border rounded-xl text-xs shadow-sm">
+                        <div class="font-bold mb-2 flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">U</div>
+                            <span>UniCesumar • Patrocinado</span>
                         </div>
-                        <p class="text-xs mb-3 text-corp-800 leading-relaxed whitespace-pre-line">${data.primaryTexts[0] ? data.primaryTexts[0].substring(0, 140) + '...' : ''}</p>
-                        <div class="bg-slate-100 border border-corp-200 h-28 rounded-lg flex items-center justify-center text-corp-400 mb-3">
-                            <i class="fas fa-image text-2xl"></i>
-                        </div>
+                        <p class="text-slate-700 mb-2 whitespace-pre-line leading-relaxed">${pt0.substring(0, 160)}...</p>
+                        <div class="bg-slate-100 h-28 rounded border flex items-center justify-center text-slate-400">Preview Criativo</div>
                     </div>
                 `;
             }
@@ -807,7 +726,6 @@
                         btn.innerHTML = '<i class="fas fa-check text-emerald-600"></i>';
                         setTimeout(() => { btn.innerHTML = orig; }, 1500);
                     }
-                    window.showToast('Copiado para a área de transferência!');
                 });
             }
         };
@@ -815,12 +733,22 @@
         window.exportAds = function(format) {
             const data = window.appState.variations[window.appState.activeVariationIndex];
             if (!data) return;
-            let content = `=== ADCRAFT PERFORMANCE STUDIO ===\nPlataforma: ${window.appState.platform}\nCurso: ${window.appState.courseName}\n\n`;
+            let content = `=== ADCRAFT PERFORMANCE STUDIO ===\nPlataforma: ${window.appState.platform.toUpperCase()}\nCurso: ${window.appState.courseName}\n\n`;
 
             if(window.appState.platform === 'google') {
-                data.headlines.forEach((h, i) => content += `Título ${i+1}: ${h}\n`);
+                content += `--- 15 TÍTULOS ---\n`;
+                data.headlines.forEach((h, i) => content += `${i+1}. ${h}\n`);
+                content += `\n--- 5 TÍTULOS LONGOS ---\n`;
+                data.longHeadlines.forEach((lh, i) => content += `${i+1}. ${lh}\n`);
+                content += `\n--- 5 DESCRIÇÕES ---\n`;
+                data.descriptions.forEach((d, i) => content += `${i+1}. ${d}\n`);
+                content += `\n--- 6 SITELINKS ---\n`;
+                data.sitelinks.forEach((s, i) => content += `Sitelink ${i+1}: ${s.title} | ${s.desc1} | ${s.desc2}\n`);
             } else {
-                data.primaryTexts.forEach((pt, i) => content += `[Texto Principal ${i+1}]\n${pt}\n\n`);
+                content += `--- 5 TEXTOS PRINCIPAIS ---\n`;
+                data.primaryTexts.forEach((pt, i) => content += `[Opção ${i+1}]\n${pt}\n\n`);
+                content += `--- TÍTULOS ---\n`;
+                data.headlines.forEach((h, i) => content += `${i+1}. ${h}\n`);
             }
 
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
@@ -830,18 +758,6 @@
             link.click();
         };
 
-        window.showToast = function(msg) {
-            const existing = document.getElementById('adcraft-toast');
-            if (existing) existing.remove();
-            const toast = document.createElement('div');
-            toast.id = 'adcraft-toast';
-            toast.className = 'fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 text-xs font-semibold flex items-center gap-2 border border-slate-700';
-            toast.innerHTML = `<i class="fas fa-circle-check text-emerald-400 text-sm"></i> ${msg}`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-        };
-
-        // Inicialização Garantida
         document.addEventListener('DOMContentLoaded', () => {
             window.goToStep(1);
         });
